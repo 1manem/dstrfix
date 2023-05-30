@@ -329,7 +329,7 @@ public:
     void Inter_Search();
     void Reg_Binary_Search();
     void Reg_Inter_Search();
-    void Merge_Sort(bool asc);
+    void MergeSortAlgo(bool asc);
     void Quick_Sort(bool asc);
     void MergeSortAlgo();
     void Quick_Sort();
@@ -577,9 +577,7 @@ void University :: Reg_Inter_Search()
     //
 }
 
-void University :: Merge_Sort(bool asc)
-
-void University :: MergeSortAlgo()
+void University :: MergeSortAlgo(bool asc)
 {
     University* MergeSort(univDLL.head);
     display_univinfo();
@@ -629,328 +627,10 @@ void University :: display_univinfo()
     univDLL.Display();
 }
 
-class Admin {
-    public:
-    void adminmenu(University * uni, User * user, RegisteredUser * reguser, Admin * admin, Favorite * Favorite, Feedback * feedb) {
-        int choice;
-        int userCount = 0;
-        int userFavCount = 0;
-
-
-            std::cout << "University Ranking System\n" << std::endl;
-            std::cout << "What would you like to do? \n\n" << std::endl;
-            std::cout << "==========================================\n" << std::endl;
-            std::cout << "1. View user details" << std::endl; //display, delete, modify, exit
-            std::cout << "2. View users feedback" << std::endl; //display, reply, exit
-            std::cout << "3. View customers favourite universities" << std::endl;
-            std::cout << "4. Generate Report" << std::endl;
-            std::cout << "5. Logout\n" << std::endl;
-            std::cout << "==========================================\n" << std::endl;
-            std::cout << "Please select an option (1-4): " << std::endl;
-            std::cin >> choice;
-
-            switch (choice) {
-            case 1: //view user details
-                int sortchoice;
-
-                std::cout << "1. Display User\n" << std::endl;
-                std::cout << "2. Delete User\n" << std::endl;
-                std::cout << "2. Modify User\n" << std::endl;
-                std::cout << "3. Exit\n\n" << std::endl;
-                std::cout << "Choose:" << std::endl;
-                std::cin >> sortchoice;
-
-                switch (sortchoice) {
-                case 1:
-                    //display user
-
-                case 1: //view user details
-                    int sortchoice;
-
-                    std::cout << "1. Merge Sort\n" << std::endl;
-                    std::cout << "2. Quick Sort\n\n" << std::endl;
-                    std::cout << "How would you like to sort the user details?: " << std::endl;
-                    std::cin >> sortchoice;
-
-                    switch (sortchoice) {
-                        case 1:
-                            // displayMergeSortedUserData();
-
-                            
-
-                        case 2:
-                            // displayQuickSortedUserData();
-
-                        default:
-                            std::cout << "Invalid input!" << std::endl;
-                            adminmenu();
-                    }
-
-                    int userchoice;
-
-                    std::cout << "1. Change password\n" << std::endl;
-                    std::cout << "2. Back\n\n" << std::endl;
-                    std::cout << "What would you like to do next?" << std::endl;
-                    std::cin >> userchoice;
-
-                    switch (sortchoice){
-                        case 1:
-                            void updatePassword();
-                        
-                        case 2:
-                            adminmenu();
-
-                        case 3:
-                            std::cout << "Invalid input!" << std::endl;
-                            adminmenu();
-                    }
-
-                    
-                case 2: //view user feedback
-                    int sortchoice2;
-
-                    std::cout << "1. Merge Sort\n" << std::endl;
-                    std::cout << "2. Quick Sort\n\n" << std::endl;
-                    std::cout << "How would you like to sort the user feedback?: " << std::endl;
-                    std::cin >> sortchoice2;
-
-                    switch(sortchoice2){
-                        case 1:
-                            // displayMergeSortedUserFeedback();
-                        
-                        case 2: 
-                            displayQuickSortedUserFeedback();
-                        default:
-                            std::cout << "Invalid input!" << std::endl;
-                            adminmenu();
-                    }
-
-                    break;
-                case 2:
-                    //delete user
-                    break;
-                case 3:
-                    //modify user
-                case 4:
-                    //exit
-
-                default:
-                    std::cout << "Invalid input!" << std::endl;
-                    adminmenu(uni, user, reguser, admin, Favorite, feedb) ;
-                }
-
-
-            case 2: //view user feedback
-                int sortchoice2;
-
-                std::cout << "1. Display Feedback\n" << std::endl;
-                std::cout << "2. Reply Feedback\n" << std::endl;
-                std::cout << "3. Exit\n\n" << std::endl;
-                std::cout << "Choose:" << std::endl;
-                std::cin >> sortchoice2;
-
-                switch (sortchoice2) {
-                case 1:
-                    feedb -> display_feedback();
-                    break;
-                case 2:
-                    // reply feedback
-                    std::cout << "reply" << std::endl;
-                    break;
-                case 3:
-                    adminmenu(uni, user, reguser, admin, Favorite, feedb) ;
-                    break;
-                default:
-                    std::cout << "Invalid Input!" << std::endl;
-                    adminmenu(uni, user, reguser, admin, Favorite, feedb) ;
-                    break;
-                }
-
-            case 3: //view customers favorite unis
-                Favorite -> display_fav();
-                break;
-            case 4:
-                //generate report
-                break;
-            case 5:
-                UserMainMenu(uni, user, reguser, admin, Favorite, feedb) ;
-                break;
-            // default: 
-                break;
-                std::cout << "Invalid choice, please try again" << std::endl;
-                break;
-            }
-    }
-}; 
-
-   
-
-   struct UserNode {
-    string name;
-    string password;
-};
-
-// void updatePassword(const string& filename) {
-//     DoubleLinkedList<UserNode> userNodeDLL;
-//     ifstream file(filename);
-    
-//     if (!file) {
-//         cout << "Failed to open file: " << filename << endl;
-//         return;
-//     }
-    
-//     UserNode userNode;
-//     string line;
-    
-//     // Read and parse the file
-//     while (getline(file, line)) {
-//         size_t pos = line.find(", ");
-//         if (pos != string::npos) {
-//             userNode.name = line.substr(0, pos);
-//             userNode.password = line.substr(pos + 2);
-//             userNodeDLL.push_back(userNode);
-//         }
-//     }
-    
-//     file.close();
-    
-//     // Ask for the name of the user to update
-//     string nameToUpdate;
-//     cout << "Enter the name of the user to update: ";
-//     getline(cin, nameToUpdate);
-    
-//     // Find the user to update
-//     bool found = false;
-//     for (User& u : users) {
-//         if (u.name == nameToUpdate) {
-//             found = true;
-//             cout << "Enter the new password for " << u.name << ": ";
-//             getline(cin, u.password);
-//             break;
-//         }
-//     }
-    
-//     if (!found) {
-//         cout << "User not found." << endl;
-//         return;
-//     }
-    
-//     // Write the updated users to the file
-//     ofstream outFile(filename);
-//     if (!outFile) {
-//         cout << "Failed to open file: " << filename << endl;
-//         return;
-//     }
-    
-//     for (const User& u : users) {
-//         outFile << u.name << ", " << u.password << endl;
-//     }
-    
-//     outFile.close();
-    
-//     cout << "File updated successfully." << endl;
-// }
-
-// void changeUserPassword(){
-//     const string filename = "userdata.txt";
-//     updatePassword(filename);
-// }
-
-// void displayMergeSortedUserData(){
-//     const string filename = "userdata.csv";
-//     readCSVMergeSort(filename);
-// }
-
-// void displayQuickSortedUserData(){
-//     string filename = "userdata.csv";
-//     // readCSVQuickSort(filename);
-// }
-
-// void displayMergeSortedUserFeedback(){
-//     const string filename = "feedback.csv";
-//     readCSVMergeSort(filename);
-// }
-
-void displayQuickSortedUserFeedback(){
-    const string filename = "feedback.csv";
-    // readCSVQuickSort(filename);
-}
-
-void displayMergeSortedUserFav(){
-    const string filename = "favorite.csv";
-    // readCSVMergeSort(filename);
-}
-
-void displayQuickSortedUserFav(){
-    const string filename = "favorite.csv";
-    // readCSVQuickSort(filename);
-}
-
 
 class RegisteredUser {
 public:
-    void displayMenu(University * uni, Admin * admin, Favorite * Favorite, Feedback * feedb) {
-        int choice;
 
-        do {
-            std::cout << "=== Main Menu ===" << std::endl;
-            std::cout << "1. Display University Academic Ranking" << std::endl;
-            std::cout << "2. Display University Faculty and Student Ratio Score" << std::endl;
-            std::cout << "3. Display University Employee Reputation Score" << std::endl;
-            std::cout << "4. Search University" << std::endl;
-            // std::cout << "5. Logout" << std::endl;
-            std::cout << "6. Exit" << std::endl;
-            std::cout << "Enter your choice: ";
-            std::cin >> choice;
-
-            switch (choice) {
-            case 1:
-                int op;
-                cout << "Choose a sorting algorithm" << endl;
-                cout << "1. Merge Sort" << endl;
-                cout << "2. Quick Sort" << endl;
-                cin >> op;
-                switch (op)
-                {
-                    //
-                }
-            break;
-            case 2:
-                int opt;
-                cout << "Choose a sorting algorithm" << endl;
-                cout << "1. Merge Sort" << endl;
-                cout << "2. Quick Sort" << endl;
-                cin >> opt;
-                switch (opt)
-                {
-                    //
-                }
-            break;
-            case 3:
-                int option;
-                cout << "Choose a sorting algorithm" << endl;
-                cout << "1. Merge Sort" << endl;
-                cout << "2. Quick Sort" << endl;
-                cin >> option;
-                switch (option)
-                {
-                    //
-                }
-            
-            case 4:
-                uni->Reg_Inter_Search();
-                break;
-            // case 5:
-            //     // user->UserMainMenu();
-            //     // break;
-            case 6:
-                std::cout << "Exiting..." << std::endl;
-                break;
-            default:
-                std::cout << "Invalid choice. Please try again." << std::endl;
-            }
-        } while (choice != 5);
-    }
 
 // private:
 
@@ -1032,55 +712,123 @@ private:
 
 	string username;
 	string password;
-    DoubleLinkedList<User>udll;
+    // DoubleLinkedList<User>udll;
 
 public:
 	
 
-	void static SignUp() {
 
-		string UserUsername, UserPassword;
+    // void display() 
+    //     {
+    //         cout<< left << this -> username << ",";
+    //         cout<< this -> password << endl;
+    //     }
+
+    //     void display_user()
+    //     {
+    //         udll.Display();
+    //     }
+
+    //     void header()
+    //     {
+    //         cout<< left << this -> username << ",";
+    //         cout<< this -> password << endl;
+    //     } 
+
+    
+};
+class Admin {
+    public:
+
+    void adminmenu(University * uni, User * user, RegisteredUser * reguser, Admin * admin, Favorite * Favorite, Feedback * feedb) {
+        int choice;
+        int userCount = 0;
+        int userFavCount = 0;
 
 
-		cout << "Welcome Future Member!" << endl;
-		cout << "Please Enter Your Desired Username: " << endl;
-		cin >> UserUsername;
-		cout << "Please Enter Your Desired Password: " << endl;
-		cin >> UserPassword;
+            std::cout << "University Ranking System\n" << std::endl;
+            std::cout << "What would you like to do? \n\n" << std::endl;
+            std::cout << "==========================================\n" << std::endl;
+            std::cout << "1. View user details" << std::endl; //display, delete, modify, exit
+            std::cout << "2. View users feedback" << std::endl; //display, reply, exit
+            std::cout << "3. View customers favourite universities" << std::endl;
+            std::cout << "4. Generate Report" << std::endl;
+            std::cout << "5. Logout\n" << std::endl;
+            std::cout << "==========================================\n" << std::endl;
+            std::cout << "Please select an option (1-4): " << std::endl;
+            std::cin >> choice;
 
-		ofstream file("userdata.csv", ios::app);
-		if (file.is_open()) {
+            switch (choice) {
+            case 1: //view user details
+                int sortchoice;
 
-			file << UserUsername << "," << UserPassword << "\n";
-			file.close();
-			cout << "The Sign Up is Successful, Welcome New Member!" << endl;
+                std::cout << "1. Display User\n" << std::endl;
+                std::cout << "2. Delete User\n" << std::endl;
+                std::cout << "2. Modify User\n" << std::endl;
+                std::cout << "3. Exit\n\n" << std::endl;
+                std::cout << "Choose:" << std::endl;
+                std::cin >> sortchoice;
 
-		}
+                switch (sortchoice) {
+                case 1:
+                    //display user
+                    break;
+                case 2:
+                    //delete user
+                    break;
+                case 3:
+                    //modify user
+                case 4:
+                    //exit
 
-		else {
-			cerr << "The Sign Up Process is Unsuccessful, Please Try Again!" << endl;
+                default:
+                    std::cout << "Invalid input!" << std::endl;
+                    adminmenu(uni, user, reguser, admin, Favorite, feedb) ;
+                }
 
-		}
-	}
 
-    void display() 
-        {
-            cout<< left << this -> username << ",";
-            cout<< this -> password << endl;
-        }
+            case 2: //view user feedback
+                int sortchoice2;
 
-        void display_user()
-        {
-            udll.Display();
-        }
+                std::cout << "1. Display Feedback\n" << std::endl;
+                std::cout << "2. Reply Feedback\n" << std::endl;
+                std::cout << "3. Exit\n\n" << std::endl;
+                std::cout << "Choose:" << std::endl;
+                std::cin >> sortchoice2;
 
-        void header()
-        {
-            cout<< left << this -> username << ",";
-            cout<< this -> password << endl;
-        } 
+                switch (sortchoice2) {
+                case 1:
+                    feedb -> display_feedback();
+                    break;
+                case 2:
+                    // reply feedback
+                    std::cout << "reply" << std::endl;
+                    break;
+                case 3:
+                    adminmenu(uni, user, reguser, admin, Favorite, feedb) ;
+                    break;
+                default:
+                    std::cout << "Invalid Input!" << std::endl;
+                    adminmenu(uni, user, reguser, admin, Favorite, feedb) ;
+                    break;
+                }
 
-	void static Login() {
+            case 3: //view customers favorite unis
+                Favorite -> display_fav();
+                break;
+            case 4:
+                //generate report
+                break;
+            case 5:
+                break;
+            // default: 
+                break;
+                std::cout << "Invalid choice, please try again" << std::endl;
+                break;
+            }
+    }
+
+    void static Login(University * uni, User * user, RegisteredUser * reguser, Admin * admin, Favorite * Favorite, Feedback * feedb) {
 
 		string UsernameEntered, PasswordEntered;
 		cout << "Welcome to the Login Menu! Please Enter Your Credentials!" << endl;
@@ -1108,8 +856,7 @@ public:
 
 		}
         else if (UsernameEntered == "Admin" && PasswordEntered == "Password") {
-            Admin admin;
-            admin.adminmenu();
+            admin->adminmenu(uni, user, reguser, admin, Favorite, feedb);
             file.close();
 
         }
@@ -1121,7 +868,35 @@ public:
 
 	}
 
+    void static SignUp(University * uni, User * user, RegisteredUser * reguser, Admin * admin, Favorite * Favorite, Feedback * feedb) {
+
+		string UserUsername, UserPassword;
+
+
+		cout << "Welcome Future Member!" << endl;
+		cout << "Please Enter Your Desired Username: " << endl;
+		cin >> UserUsername;
+		cout << "Please Enter Your Desired Password: " << endl;
+		cin >> UserPassword;
+
+		ofstream file("userdata.csv", ios::app);
+		if (file.is_open()) {
+
+			file << UserUsername << "," << UserPassword << "\n";
+			file.close();
+			cout << "The Sign Up is Successful, Welcome New Member!" << endl;
+
+		}
+
+		else {
+			cerr << "The Sign Up Process is Unsuccessful, Please Try Again!" << endl;
+
+		}
+	}
 };
+    
+   
+
 
 void UserMainMenu(University * uni, User * user, RegisteredUser * reguser, Admin * admin, Favorite * Favorite, Feedback * feedb) {
 		int Menu;
@@ -1136,14 +911,12 @@ void UserMainMenu(University * uni, User * user, RegisteredUser * reguser, Admin
 		cout << "\n 6. Exit" << endl;
 		cout << "\n Please Input your Selection (1-5):  " << endl;
 		cin >> Menu;
-
-
 		switch(Menu) {
 			case 1:
-				user->SignUp();
+				admin->SignUp(uni, user, reguser, admin, Favorite, feedb);
 				break;
 			case 2:
-				user->Login();
+				admin->Login(uni, user, reguser, admin, Favorite, feedb);
 				break;
 			case 3:
 				uni->display_univinfo();
@@ -1169,6 +942,7 @@ void UserMainMenu(University * uni, User * user, RegisteredUser * reguser, Admin
             break;
 			case 5:
                 int choice;
+                bool asc;
                 cout << "Choose a sorting algorithm" << endl;
                 cout << "1. Merge Sort" << endl;
                 cout << "2. Quick Sort" << endl;
@@ -1176,7 +950,6 @@ void UserMainMenu(University * uni, User * user, RegisteredUser * reguser, Admin
                 switch (choice)
                 {
                     case 1:
-                        bool asc;
                         int ans;
                         cout << "Choose in which order" << endl;
                         cout << "1. Ascending" << endl;
@@ -1193,10 +966,9 @@ void UserMainMenu(University * uni, User * user, RegisteredUser * reguser, Admin
                             default:
                                 break;
                         }
-                        uni->Merge_Sort(asc);
+                        uni->MergeSortAlgo(asc);
                         break;
                     case 2:
-                        bool asc;
                         int answer;
                         cout << "Choose in which order" << endl;
                         cout << "1. Ascending" << endl;
@@ -1213,11 +985,7 @@ void UserMainMenu(University * uni, User * user, RegisteredUser * reguser, Admin
                             default:
                                 break;
                         }
-                        uni->Quick_Sort(asc);
-                        uni->MergeSortAlgo();
-                        break;
-                    case 2:
-                        uni->Quick_Sort();
+                        uni->Quick_Sort(asc);;
                         break;
                     default:
                         cout << "Invalid choice" << endl;
@@ -1234,6 +1002,70 @@ void UserMainMenu(University * uni, User * user, RegisteredUser * reguser, Admin
 		}
 
 	}
+
+void reguserMenu(University * uni, Admin * admin, Favorite * Favorite, Feedback * feedb) {
+        int choice;
+
+        do {
+            std::cout << "=== Main Menu ===" << std::endl;
+            std::cout << "1. Display University Academic Ranking" << std::endl;
+            std::cout << "2. Display University Faculty and Student Ratio Score" << std::endl;
+            std::cout << "3. Display University Employee Reputation Score" << std::endl;
+            std::cout << "4. Search University" << std::endl;
+            // std::cout << "5. Logout" << std::endl;
+            std::cout << "6. Exit" << std::endl;
+            std::cout << "Enter your choice: ";
+            std::cin >> choice;
+
+            switch (choice) {
+            case 1:
+                int op;
+                cout << "Choose a sorting algorithm" << endl;
+                cout << "1. Merge Sort" << endl;
+                cout << "2. Quick Sort" << endl;
+                cin >> op;
+                switch (op)
+                {
+                    //
+                }
+            break;
+            case 2:
+                int opt;
+                cout << "Choose a sorting algorithm" << endl;
+                cout << "1. Merge Sort" << endl;
+                cout << "2. Quick Sort" << endl;
+                cin >> opt;
+                switch (opt)
+                {
+                    //
+                }
+            break;
+            case 3:
+                int option;
+                cout << "Choose a sorting algorithm" << endl;
+                cout << "1. Merge Sort" << endl;
+                cout << "2. Quick Sort" << endl;
+                cin >> option;
+                switch (option)
+                {
+                    //
+                }
+            
+            case 4:
+                uni->Reg_Inter_Search();
+                break;
+            // case 5:
+            //     // user->UserMainMenu();
+            //     // break;
+            case 6:
+                std::cout << "Exiting..." << std::endl;
+                break;
+            default:
+                std::cout << "Invalid choice. Please try again." << std::endl;
+            }
+        } while (choice != 5);
+    }
+
 
 int main()
 {

@@ -71,7 +71,7 @@ public:
         }
     }
 
-    void Display() {
+     void Display() {
         Node* current = head;
         while (current != nullptr) 
         {
