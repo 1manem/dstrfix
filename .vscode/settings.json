@@ -11,6 +11,9 @@
         "xiosbase": "cpp",
         "xtree": "cpp",
         "ostream": "cpp",
-        "iosfwd": "cpp"
+        "iosfwd": "cpp",
+        "algorithm": "cpp",
+        "chrono": "cpp",
+        "xlocale": "cpp"
     }
 }

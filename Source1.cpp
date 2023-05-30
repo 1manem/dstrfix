@@ -5,6 +5,7 @@
 #include <ctime>
 #include <iomanip>
 #include <chrono>
+#include <algorithm>
 #include "SingleLinkedList.h"
 #include "DoubleLinkedList.h"
 #include "BinarySearch.h"
@@ -328,7 +329,7 @@ public:
     void Inter_Search();
     void Reg_Binary_Search();
     void Reg_Inter_Search();
-    void Merge_Sort();
+    void MergeSortAlgo();
     void Quick_Sort();
     void display_univinfo();
     void display();
@@ -574,14 +575,19 @@ void University :: Reg_Inter_Search()
     //
 }
 
-void University :: Merge_Sort()
+void University :: MergeSortAlgo()
 {
-    //
+    University* MergeSort(univDLL.head);
+    display_univinfo();
 }
 
 void University :: Quick_Sort()
 {
-    //
+    QuickSort(univDLL.head,univDLL.tail);
+    // sort([](const University* a, const University* b) {
+    //     return a->institution < b->institution;
+    // });
+    display_univinfo();
 }
 
 // bool University :: compareAttributes()
@@ -650,12 +656,12 @@ public:
 
                     switch (sortchoice) {
                         case 1:
-                            displayMergeSortedUserData();
+                            // displayMergeSortedUserData();
 
                             
 
                         case 2:
-                            displayQuickSortedUserData();
+                            // displayQuickSortedUserData();
 
                         default:
                             std::cout << "Invalid input!" << std::endl;
@@ -692,7 +698,7 @@ public:
 
                     switch(sortchoice2){
                         case 1:
-                            displayMergeSortedUserFeedback();
+                            // displayMergeSortedUserFeedback();
                         
                         case 2: 
                             displayQuickSortedUserFeedback();
@@ -803,20 +809,20 @@ public:
 //     updatePassword(filename);
 // }
 
-void displayMergeSortedUserData(){
-    const string filename = "userdata.csv";
-    readCSVMergeSort(filename);
-}
+// void displayMergeSortedUserData(){
+//     const string filename = "userdata.csv";
+//     readCSVMergeSort(filename);
+// }
 
-void displayQuickSortedUserData(){
-    string filename = "userdata.csv";
-    // readCSVQuickSort(filename);
-}
+// void displayQuickSortedUserData(){
+//     string filename = "userdata.csv";
+//     // readCSVQuickSort(filename);
+// }
 
-void displayMergeSortedUserFeedback(){
-    const string filename = "feedback.csv";
-    readCSVMergeSort(filename);
-}
+// void displayMergeSortedUserFeedback(){
+//     const string filename = "feedback.csv";
+//     readCSVMergeSort(filename);
+// }
 
 void displayQuickSortedUserFeedback(){
     const string filename = "feedback.csv";
@@ -1149,10 +1155,10 @@ void UserMainMenu(University * uni, User * user, RegisteredUser * reguser, Admin
                 switch (choice)
                 {
                     case 1:
-                        //
+                        uni->MergeSortAlgo();
                         break;
                     case 2:
-                        //
+                        uni->Quick_Sort();
                         break;
                     default:
                         cout << "Invalid choice" << endl;
