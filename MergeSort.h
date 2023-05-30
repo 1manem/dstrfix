@@ -1,107 +1,56 @@
-#include <iostream>
+#pragma once
+#include "DoubleLinkedList.h"
 #include <fstream>
-#include <sstream>
-#include <string>
-using namespace std;
 
-void merge(string* array, int const left, int const mid, int const right)
-{
-    auto const subArrayOne = mid - left + 1;
-    auto const subArrayTwo = right - mid;
+template <class T>
+typename DoubleLinkedList<T>::Node* merge(typename DoubleLinkedList<T>::Node* left, typename DoubleLinkedList<T>::Node* right) {
+    // Merge two sorted lists (left and right) into a single sorted list
+    typename DoubleLinkedList<T>::Node* result = nullptr;
 
-    auto* leftArray = new string[subArrayOne];
-    auto* rightArray = new string[subArrayTwo];
+    if (left == nullptr)
+        return right;
+    if (right == nullptr)
+        return left;
 
-    for (auto i = 0; i < subArrayOne; i++)
-        leftArray[i] = array[left + i];
-    for (auto j = 0; j < subArrayTwo; j++)
-        rightArray[j] = array[mid + 1 + j];
-
-    auto indexOfSubArrayOne = 0;
-    auto indexOfSubArrayTwo = 0;
-    int indexOfMergedArray = left;
-
-    while (indexOfSubArrayOne < subArrayOne && indexOfSubArrayTwo < subArrayTwo)
-    {
-        if (leftArray[indexOfSubArrayOne] <= rightArray[indexOfSubArrayTwo])
-        {
-            array[indexOfMergedArray] = leftArray[indexOfSubArrayOne];
-            indexOfSubArrayOne++;
-        }
-        else
-        {
-            array[indexOfMergedArray] = rightArray[indexOfSubArrayTwo];
-            indexOfSubArrayTwo++;
-        }
-        indexOfMergedArray++;
+    if (left->data <= right->data) {
+        result = left;
+        result->next = merge<T>(left->next, right);
+        result->next->prev = result;
+    } else {
+        result = right;
+        result->next = merge<T>(left, right->next);
+        result->next->prev = result;
     }
 
-    while (indexOfSubArrayOne < subArrayOne)
-    {
-        array[indexOfMergedArray] = leftArray[indexOfSubArrayOne];
-        indexOfSubArrayOne++;
-        indexOfMergedArray++;
-    }
-
-    while (indexOfSubArrayTwo < subArrayTwo)
-    {
-        array[indexOfMergedArray] = rightArray[indexOfSubArrayTwo];
-        indexOfSubArrayTwo++;
-        indexOfMergedArray++;
-    }
-
-    delete[] leftArray;
-    delete[] rightArray;
+    return result;
 }
 
-void mergeSort(string* array, int const begin, int const end)
-{
-    if (begin >= end)
+template <class T>
+void mergeSort(DoubleLinkedList<T>& dll) {
+    // Perform merge sort on the DoubleLinkedList
+    typename DoubleLinkedList<T>::Node* head = dll.getHead();
+
+    if (head == nullptr || head->next == nullptr)
         return;
 
-    auto mid = begin + (end - begin) / 2;
-    mergeSort(array, begin, mid);
-    mergeSort(array, mid + 1, end);
-    merge(array, begin, mid, end);
-}
+    typename DoubleLinkedList<T>::Node* mid = dll.getMiddle();
+    typename DoubleLinkedList<T>::Node* nextToMid = mid->next;
 
-void printArray(string* array, int size)
-{
-    for (auto i = 0; i < size; i++)
-        cout << array[i] << endl;
-}
+    // Set the previous node of mid to nullptr
+    mid->next = nullptr;
+    nextToMid->prev = nullptr;
 
-void readCSVMergeSort(const string& filename)
-{
-    ifstream file(filename);
-    if (!file)
-    {
-        cout << "Failed to open file: " << filename << endl;
-        return;
-    }
+    DoubleLinkedList<T> leftHalf;
+    DoubleLinkedList<T> rightHalf;
 
-    const int MAX_SIZE = 100;
-    string values[MAX_SIZE];
-    string line;
-    int i = 0;
+    leftHalf.setHead(head);
+    leftHalf.setTail(mid);
+    rightHalf.setHead(nextToMid);
+    rightHalf.setTail(dll.getTail());
 
-    while (getline(file, line) && i < MAX_SIZE)
-    {
-        stringstream ss(line);
-        string value;
+    mergeSort<T>(leftHalf);
+    mergeSort<T>(rightHalf);
 
-        getline(ss, value, ',');
-        values[i] = value;
-
-        i++;
-    }
-
-    file.close();
-
-    auto arr_size = i;
-
-    mergeSort(values, 0, arr_size - 1);
-
-    cout << "\nSorted contents are:\n";
-    printArray(values, arr_size);
+    dll.setHead(merge<T>(leftHalf.getHead(), rightHalf.getHead()));
+    dll.setTail(merge<T>(leftHalf.getTail(), rightHalf.getTail()));
 }

@@ -8,6 +8,7 @@ public:
     Node* tail;
     DoubleLinkedList() {
         head = nullptr;
+        tail = nullptr;
     }
 
     void InsertFront(Node* newNode) { 

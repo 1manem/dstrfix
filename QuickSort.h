@@ -50,6 +50,25 @@ Node* partition(Node* low, Node* high) {
 }
 
 template <class Node>
+void SortAscending(DoubleLinkedList<Node>& univDLL) {
+    quickSort(univDLL, univDLL.head, univDLL.tail, true);
+}
+
+template <class Node>
+void SortDescending(DoubleLinkedList<Node>& univDLL) {
+    quickSort(univDLL, univDLL.head, univDLL.tail, false);
+}
+
+template <class Node>
+void quickSort(DoubleLinkedList<Node>& univDLL, Node* low, Node* high, bool ascending) {
+    if (low != nullptr && high != nullptr && low != high && high->nextAdd != low) {
+        Node* pivot = partition(low, high, ascending);
+        quickSort(univDLL, low, pivot->prevAdd, ascending);
+        quickSort(univDLL, pivot->nextAdd, high, ascending);
+    }
+}
+
+template <class Node>
 void quickSort(univDLL.head, Node* low, Node* high) {
     if (low != nullptr && high != nullptr && low != high && high->nextAdd != low) {
         University* pivot = partition(low, high);
