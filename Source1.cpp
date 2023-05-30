@@ -5,6 +5,7 @@
 #include <ctime>
 #include <iomanip>
 #include <chrono>
+#include <algorithm>
 #include "SingleLinkedList.h"
 #include "DoubleLinkedList.h"
 #include "BinarySearch.h"
@@ -265,7 +266,6 @@ public:
 	double ScoreScaled;
 	University* nextAdd;
 	University* prevAdd;
-	// SingleLinkedList<University> univSLL;
 	DoubleLinkedList<University> univDLL;
 
     University(int rank, string institution, string LocationCode, string Location, double ArScore, int ArRank,
@@ -325,12 +325,14 @@ public:
     void InsertToEndList(string rank, string institution, string LocationCode, string Location, string ArScore, string ArRank,
 		string ErScore, string ErRank, string FsrScore, string FsrRank, string CpfScore, string CpfRank, string IfrScore, string IfrRank, string IsrScore,
 		string IsrRank, string IrnSCore, string IrnRank, string GerScore, string GerRank, string ScoreScaled);
-    void Binary_Search();
+    void BinarySearch();
     void Inter_Search();
     void Reg_Binary_Search();
     void Reg_Inter_Search();
     void Merge_Sort(bool asc);
     void Quick_Sort(bool asc);
+    void MergeSortAlgo();
+    void Quick_Sort();
     void display_univinfo();
     void display();
     bool compareAttributes();
@@ -494,9 +496,21 @@ void University :: InsertToEndList(string rank, string institution, string Locat
         univDLL.InsertEnd(newNode);
 }
 
-void University :: Binary_Search()
+void University :: BinarySearch()
 {
-    //
+    string target;
+    cout << "Welcome to the Binary Search Menu!" << endl;
+    cout << "Please enter the university name : "<< endl;
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(),'\n');
+    getline(cin, target);
+    University * point = NormalBinarySearch(univDLL.head, target);
+    if (point != NULL){
+        point->display();
+    }
+    else{
+        cout << "University not Found";
+    }
 }
 
 void University :: Reg_Binary_Search()
@@ -506,8 +520,57 @@ void University :: Reg_Binary_Search()
 
 void University :: Inter_Search()
 {
-    //
+string input;
+    int opt, type;
+    cout << "\nWelcome to the Interpolation Search Menu" << endl;
+    cout << "\nHow do you want to search the universities?" << endl;
+    cout << "1. Rank" << endl;
+    cout << "2. Institution" << endl;
+    cout << "3. Location Code" << endl;
+    cout << "4. Location" << endl;
+    cout << "5. Academic Reputation Rank" << endl;
+    cout << "6. Employer Reputation Rank" << endl;
+    cin >> opt;
+    cin.clear();
+
+    if (opt == 1) {
+        type = 1;
+    }
+    else if (opt == 2) {
+        type = 2;
+    }
+    else if (opt == 3) {
+        type = 3;
+    }
+    else if (opt == 4) {
+        type = 4;
+    }
+    else if (opt == 5) {
+        type = 5;
+    }
+    else if (opt == 6) {
+        type = 6;
+    }
+    else {
+        cout << "ERROR" << endl;
+        return;
+    }
+
+    cout << "Enter what to search: ";
+    cin.clear();
+    cin.ignore();
+    getline(cin, input);
+
+    University* result = IntSearch(univDLL.head, univDLL.tail , input, type);
+
+    if (result != nullptr) {
+        result->display();
+    }
+    else {
+        cout << "UNIVERSITY NOT FOUND" << endl;
+    }
 }
+
 
 void University :: Reg_Inter_Search()
 {
@@ -515,13 +578,20 @@ void University :: Reg_Inter_Search()
 }
 
 void University :: Merge_Sort(bool asc)
+
+void University :: MergeSortAlgo()
 {
-    //
+    University* MergeSort(univDLL.head);
+    display_univinfo();
 }
 
 void University :: Quick_Sort(bool asc)
 {
-    //
+    QuickSort(univDLL.head,univDLL.tail);
+    // sort([](const University* a, const University* b) {
+    //     return a->institution < b->institution;
+    // });
+    display_univinfo();
 }
 
 
@@ -590,6 +660,68 @@ class Admin {
                 switch (sortchoice) {
                 case 1:
                     //display user
+
+                case 1: //view user details
+                    int sortchoice;
+
+                    std::cout << "1. Merge Sort\n" << std::endl;
+                    std::cout << "2. Quick Sort\n\n" << std::endl;
+                    std::cout << "How would you like to sort the user details?: " << std::endl;
+                    std::cin >> sortchoice;
+
+                    switch (sortchoice) {
+                        case 1:
+                            // displayMergeSortedUserData();
+
+                            
+
+                        case 2:
+                            // displayQuickSortedUserData();
+
+                        default:
+                            std::cout << "Invalid input!" << std::endl;
+                            adminmenu();
+                    }
+
+                    int userchoice;
+
+                    std::cout << "1. Change password\n" << std::endl;
+                    std::cout << "2. Back\n\n" << std::endl;
+                    std::cout << "What would you like to do next?" << std::endl;
+                    std::cin >> userchoice;
+
+                    switch (sortchoice){
+                        case 1:
+                            void updatePassword();
+                        
+                        case 2:
+                            adminmenu();
+
+                        case 3:
+                            std::cout << "Invalid input!" << std::endl;
+                            adminmenu();
+                    }
+
+                    
+                case 2: //view user feedback
+                    int sortchoice2;
+
+                    std::cout << "1. Merge Sort\n" << std::endl;
+                    std::cout << "2. Quick Sort\n\n" << std::endl;
+                    std::cout << "How would you like to sort the user feedback?: " << std::endl;
+                    std::cin >> sortchoice2;
+
+                    switch(sortchoice2){
+                        case 1:
+                            // displayMergeSortedUserFeedback();
+                        
+                        case 2: 
+                            displayQuickSortedUserFeedback();
+                        default:
+                            std::cout << "Invalid input!" << std::endl;
+                            adminmenu();
+                    }
+
                     break;
                 case 2:
                     //delete user
@@ -656,20 +788,20 @@ class Admin {
 };
 
 
-void displayMergeSortedUserData(){
-    const string filename = "userdata.csv";
-    readCSVMergeSort(filename);
-}
+// void displayMergeSortedUserData(){
+//     const string filename = "userdata.csv";
+//     readCSVMergeSort(filename);
+// }
 
-void displayQuickSortedUserData(){
-    string filename = "userdata.csv";
-    // readCSVQuickSort(filename);
-}
+// void displayQuickSortedUserData(){
+//     string filename = "userdata.csv";
+//     // readCSVQuickSort(filename);
+// }
 
-void displayMergeSortedUserFeedback(){
-    const string filename = "feedback.csv";
-    readCSVMergeSort(filename);
-}
+// void displayMergeSortedUserFeedback(){
+//     const string filename = "feedback.csv";
+//     readCSVMergeSort(filename);
+// }
 
 void displayQuickSortedUserFeedback(){
     const string filename = "feedback.csv";
@@ -744,6 +876,7 @@ public:
                 {
                     //
                 }
+            break;
             case 2:
                 int opt;
                 cout << "Choose a sorting algorithm" << endl;
@@ -754,6 +887,7 @@ public:
                 {
                     //
                 }
+            break;
             case 3:
                 int option;
                 cout << "Choose a sorting algorithm" << endl;
@@ -764,6 +898,7 @@ public:
                 {
                     //
                 }
+            
             case 4:
                 uni->Reg_Inter_Search();
                 break;
@@ -832,7 +967,6 @@ public:
 			cerr << "The Sign Up Process is Unsuccessful, Please Try Again!" << endl;
 
 		}
-
 	}
 
 	void static Login() {
@@ -897,15 +1031,12 @@ void UserMainMenu(University * uni, User * user, RegisteredUser * reguser, Admin
 			case 1:
 				user->SignUp();
 				break;
-
 			case 2:
 				user->Login();
 				break;
-
 			case 3:
 				uni->display_univinfo();
 				break;
-
 			case 4:
 				int option;
                 cout << "Choose a searching algorithm" << endl;
@@ -915,7 +1046,7 @@ void UserMainMenu(University * uni, User * user, RegisteredUser * reguser, Admin
                 switch (option)
                 {
                     case 1:
-                        uni -> Binary_Search();
+                        uni-> BinarySearch();
                         break;
                     case 2:
                         uni -> Inter_Search();
@@ -924,7 +1055,7 @@ void UserMainMenu(University * uni, User * user, RegisteredUser * reguser, Admin
                         cout << "Invalid choice" << endl;
                         break;
                 }
-
+            break;
 			case 5:
                 int choice;
                 cout << "Choose a sorting algorithm" << endl;
@@ -972,19 +1103,23 @@ void UserMainMenu(University * uni, User * user, RegisteredUser * reguser, Admin
                                 break;
                         }
                         uni->Quick_Sort(asc);
+                        uni->MergeSortAlgo();
+                        break;
+                    case 2:
+                        uni->Quick_Sort();
                         break;
                     default:
                         cout << "Invalid choice" << endl;
                         break;
                 }
-
+            break;
 			case 6:
 				cout << "Thank You for Visiting the Universities Ranking System, Have a Nice Day!" << endl;
 				return;
-
+            break;
 			default:
 				cout << "The Selection is Invalid, Please Select other Options" << endl;
-
+            break;
 		}
 
 	}
@@ -994,7 +1129,6 @@ int main()
     string rank, institution, locationCode, location, arScore, arRank, erScore, erRank, fsrScore, fsrRank, cpfScore, 
             cpfRank, ifrScore, ifrRank, isrScore, isrRank, irnScore, irnRank, gerScore, gerRank, scoreScaled;
     string username, password;
-    //
     University * uni = new University();
     User * user = new User();
     RegisteredUser * reguser = new RegisteredUser();
@@ -1028,20 +1162,12 @@ int main()
             getline(file, gerScore, ',');
             getline(file, gerRank, ',');
             getline(file, scoreScaled);
-            // if (rank == "Rank")
-            // {
-            //     continue;
-            // }
-            // else if (rank == "")
-            // {
-            //     break;
-            // }
+
             uni-> InsertToEndList(rank, institution, locationCode, location, arScore, arRank, erScore, erRank, fsrScore, 
             fsrRank, cpfScore, cpfRank, ifrScore, ifrRank, isrScore, isrRank, irnScore, irnRank, gerScore, gerRank, scoreScaled);
 
         }
     }
-
 
     UserMainMenu(uni, user, reguser, admin, fav, feedb);
 

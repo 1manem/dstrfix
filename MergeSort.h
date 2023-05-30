@@ -1,56 +1,57 @@
-#pragma once
-#include "DoubleLinkedList.h"
+#include <iostream>
 #include <fstream>
+#include <sstream>
+#include <string>
+using namespace std;
+    template<class Node>
+    Node* Merge(Node* left, Node* right) {
+        if (left == nullptr)
+            return right;
+        if (right == nullptr)
+            return left;
 
-template <class T>
-typename DoubleLinkedList<T>::Node* merge(typename DoubleLinkedList<T>::Node* left, typename DoubleLinkedList<T>::Node* right) {
-    // Merge two sorted lists (left and right) into a single sorted list
-    typename DoubleLinkedList<T>::Node* result = nullptr;
+        Node* result = nullptr;
+        if (left->rank >= right->rank) {
+            result = left;
+            result->nextAdd = Merge(left->nextAdd, right);
+            result->nextAdd->prevAdd = result;
+        }
+        else {
+            result = right;
+            result->nextAdd = Merge(left, right->nextAdd);
+            result->nextAdd->prevAdd = result;
+        }
 
-    if (left == nullptr)
-        return right;
-    if (right == nullptr)
-        return left;
-
-    if (left->data <= right->data) {
-        result = left;
-        result->next = merge<T>(left->next, right);
-        result->next->prev = result;
-    } else {
-        result = right;
-        result->next = merge<T>(left, right->next);
-        result->next->prev = result;
+        return result;
     }
+    template<class Node>
+    Node* MergeSort(Node* head) {
+        if (head == nullptr || head->nextAdd == nullptr)
+            return head;
 
-    return result;
-}
+        Node* middle = getMiddle(head);
+        Node* nextToMiddle = middle->nextAdd;
 
-template <class T>
-void mergeSort(DoubleLinkedList<T>& dll) {
-    // Perform merge sort on the DoubleLinkedList
-    typename DoubleLinkedList<T>::Node* head = dll.getHead();
+        middle->nextAdd = nullptr;
+        nextToMiddle->prevAdd = nullptr;
 
-    if (head == nullptr || head->next == nullptr)
-        return;
+        Node* left = MergeSort(head);
+        Node* right = MergeSort(nextToMiddle);
 
-    typename DoubleLinkedList<T>::Node* mid = dll.getMiddle();
-    typename DoubleLinkedList<T>::Node* nextToMid = mid->next;
+        return Merge(left, right);
+    }
+    template<class Node>
+    Node* getMiddle(Node* head) {
+        if (head == nullptr)
+            return head;
 
-    // Set the previous node of mid to nullptr
-    mid->next = nullptr;
-    nextToMid->prev = nullptr;
+        Node* slow = head;
+        Node* fast = head;
 
-    DoubleLinkedList<T> leftHalf;
-    DoubleLinkedList<T> rightHalf;
+        while (fast->nextAdd != nullptr && fast->nextAdd->nextAdd != nullptr) {
+            slow = slow->nextAdd;
+            fast = fast->nextAdd->nextAdd;
+        }
 
-    leftHalf.setHead(head);
-    leftHalf.setTail(mid);
-    rightHalf.setHead(nextToMid);
-    rightHalf.setTail(dll.getTail());
-
-    mergeSort<T>(leftHalf);
-    mergeSort<T>(rightHalf);
-
-    dll.setHead(merge<T>(leftHalf.getHead(), rightHalf.getHead()));
-    dll.setTail(merge<T>(leftHalf.getTail(), rightHalf.getTail()));
-}
+        return slow;
+    };
