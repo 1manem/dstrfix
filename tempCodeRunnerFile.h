@@ -1,1 +1,1 @@
-			// cout << "" << endl;
+        cout << start << endl << end << endl << target << endl << type << endl;

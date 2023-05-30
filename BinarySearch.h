@@ -5,8 +5,8 @@ using namespace std;
 
 template <class Node>
 Node* midNode(Node* front, Node* back){
-	if(front != NULL){
-		return nullptr;
+	if(front == NULL){
+		return NULL;
 	}
 	Node* left = front;
 	Node* right = front->nextAdd;
@@ -22,27 +22,27 @@ Node* midNode(Node* front, Node* back){
 }
 
 
-template <class Node>
+template <class Node> 
 Node* NormalBinarySearch(Node* head, string target) {
+    cout << "masuk";
 	Node* begin = head;
 	Node* finish = NULL;
-
 	while (begin != finish) {
 		Node* mid = midNode(begin, finish);
-		if (data.compare(mid->institution) == 0) {
-			return mid;
+		if (stoi(target) == mid->rank) {
+			cout << "check";
+            cout << mid << endl;
+            return mid;
 		}
-		else if (mid->institution.compare(target) > 0) {
-			finish = mid;
+		else if (mid->rank > stoi(target)) {
+			finish = mid->prevAdd;
 		}
 		else {
 			begin = mid->nextAdd;
 		}
 	}
-	
 	return NULL;
-}
-
+};
 
 template <class Node>
 Node* MemberBinarySearch(Node* head, string target, int type) {
@@ -52,7 +52,7 @@ Node* MemberBinarySearch(Node* head, string target, int type) {
     switch (type) {
         case 1:
             while (begin != finish) {
-                Node* mid = middle(begin, finish);
+                Node* mid = midNode(begin, finish);
                 if (stoi(target) == mid->rank) {
                     return mid;
                 }
@@ -67,7 +67,7 @@ Node* MemberBinarySearch(Node* head, string target, int type) {
 
         case 2:
             while (begin != finish) {
-                Node* mid = middle(begin, finish);
+                Node* mid = midNode(begin, finish);
                 if (target.compare(mid->institution) == 0) {
                     return mid;
                 }
@@ -82,7 +82,7 @@ Node* MemberBinarySearch(Node* head, string target, int type) {
             
         case 3:
             while (begin != finish) {
-                Node* mid = middle(begin, finish);
+                Node* mid = midNode(begin, finish);
                 if (target.compare(mid->LocationCode) == 0) {
                     return mid;
                 }
@@ -97,7 +97,7 @@ Node* MemberBinarySearch(Node* head, string target, int type) {
             
         case 4:
             while (begin != finish) {
-                Node* mid = middle(begin, finish);
+                Node* mid = midNode(begin, finish);
                 if (target.compare(mid->Location) == 0) {
                     return mid;
                 }
@@ -112,7 +112,7 @@ Node* MemberBinarySearch(Node* head, string target, int type) {
         
         case 5:
             while (begin != finish) {
-                Node* mid = middle(begin, finish);
+                Node* mid = midNode(begin, finish);
                 if (stoi(target) == mid->ArRank) {
                     return mid;
                 }
@@ -127,7 +127,7 @@ Node* MemberBinarySearch(Node* head, string target, int type) {
             
         case 6:
             while (begin != finish) {
-                Node* mid = middle(begin, finish);
+                Node* mid = midNode(begin, finish);
                 if (stoi(target) == mid->ErRank) {
                     return mid;
                 }
@@ -147,4 +147,4 @@ Node* MemberBinarySearch(Node* head, string target, int type) {
     }
 
     return nullptr;
-};
+}

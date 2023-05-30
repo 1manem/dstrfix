@@ -1,78 +1,32 @@
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <string>
-using namespace std;
-
 template <class Node>
-void swapNodes(Node* a, Node* b) {
-    if (a == nullptr || b == nullptr)
-        return;
+Node* Partition(Node* low, Node* high) {
+        int pivot = high->rank;
+        Node* i = low->prevAdd;
 
-    // Swap the next pointers
-    Node* temp = a->nextAdd;
-    a->nextAdd = b->nextAdd;
-    b->nextAdd = temp;
+        for (Node* j = low; j != high; j = j->nextAdd) {
+            if (j->rank >= pivot) {
+                i = (i == nullptr) ? low : i->nextAdd;
+                std::swap(i->rank, j->rank);
+            }
+        }
 
-    // Swap the prev pointers
-    temp = a->prevAdd;
-    a->prevAdd = b->prevAdd;
-    b->prevAdd = temp;
+        i = (i == nullptr) ? low : i->nextAdd;
+        std::swap(i->rank, high->rank);
 
-    // Update the next node's prev pointer
-    if (a->nextAdd != nullptr)
-        a->nextAdd->prevAdd = a;
-    if (b->nextAdd != nullptr)
-        b->nextAdd->prevAdd = b;
+        return i;
 
-    // Update the prev node's next pointer
-    if (a->prevAdd != nullptr)
-        a->prevAdd->nextAdd = a;
-    if (b->prevAdd != nullptr)
-        b->prevAdd->nextAdd = b;
-}
+    }
 
-template <class Node>
-Node* partition(Node* low, Node* high) {
-    double pivot = high->ScoreScaled;
-    Node* i = low->prevAdd;
-
-    for (Node* j = low; j != high; j = j->nextAdd) {
-        if (j->ScoreScaled <= pivot) {
-            i = (i == nullptr) ? low : i->nextAdd;
-            swapNodes(i, j);
+    // Quicksort algorithm for linked list
+    template <class Node>
+    void QuickSort(Node* low, Node* high) {
+        if (high != nullptr && low != high && low != high->nextAdd) {
+            Node* pivot = Partition(low, high);
+            QuickSort(low, pivot->prevAdd);
+            QuickSort(pivot->nextAdd, high);
         }
     }
-
-    i = (i == nullptr) ? low : i->nextAdd;
-    swapNodes(i, high);
-    return i;
-}
-
-template <class Node>
-void SortAscending(DoubleLinkedList<Node>& univDLL) {
-    quickSort(univDLL, univDLL.head, univDLL.tail, true);
-}
-
-template <class Node>
-void SortDescending(DoubleLinkedList<Node>& univDLL) {
-    quickSort(univDLL, univDLL.head, univDLL.tail, false);
-}
-
-template <class Node>
-void quickSort(DoubleLinkedList<Node>& univDLL, Node* low, Node* high, bool ascending) {
-    if (low != nullptr && high != nullptr && low != high && high->nextAdd != low) {
-        Node* pivot = partition(low, high, ascending);
-        quickSort(univDLL, low, pivot->prevAdd, ascending);
-        quickSort(univDLL, pivot->nextAdd, high, ascending);
-    }
-}
-
-template <class Node>
-void quickSort(univDLL.head, Node* low, Node* high) {
-    if (low != nullptr && high != nullptr && low != high && high->nextAdd != low) {
-        University* pivot = partition(low, high);
-        quickSort(univDLL, low, pivot->prevAdd);
-        quickSort(univDLL, pivot->nextAdd, high);
-    }
-};
+    // template <class Node>
+    // void Quick_Sort() {
+    //     QuickSort(head, tail);
+    // }
