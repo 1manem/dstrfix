@@ -22,14 +22,13 @@ Node* midNode(Node* front, Node* back){
 }
 
 
-template <class Node>
+template <class Node> 
 Node* NormalBinarySearch(Node* head, string target) {
 	Node* begin = head;
 	Node* finish = NULL;
-
 	while (begin != finish) {
 		Node* mid = midNode(begin, finish);
-		if (data.compare(mid->institution) == 0) {
+		if (target.compare(mid->institution) == 0) {
 			return mid;
 		}
 		else if (mid->institution.compare(target) > 0) {
@@ -41,8 +40,7 @@ Node* NormalBinarySearch(Node* head, string target) {
 	}
 	
 	return NULL;
-}
-
+};
 
 template <class Node>
 Node* MemberBinarySearch(Node* head, string target, int type) {

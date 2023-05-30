@@ -1,5 +1,15 @@
 {
     "files.associations": {
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "fstream": "cpp",
+        "xstring": "cpp",
+        "atomic": "cpp",
+        "forward_list": "cpp",
+        "ios": "cpp",
+        "system_error": "cpp",
+        "vector": "cpp",
+        "xiosbase": "cpp",
+        "xtree": "cpp",
+        "ostream": "cpp"
     }
 }

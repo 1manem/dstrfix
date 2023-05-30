@@ -265,7 +265,6 @@ public:
 	double ScoreScaled;
 	University* nextAdd;
 	University* prevAdd;
-	// SingleLinkedList<University> univSLL;
 	DoubleLinkedList<University> univDLL;
 
     University(int rank, string institution, string LocationCode, string Location, double ArScore, int ArRank,
@@ -325,7 +324,7 @@ public:
     void InsertToEndList(string rank, string institution, string LocationCode, string Location, string ArScore, string ArRank,
 		string ErScore, string ErRank, string FsrScore, string FsrRank, string CpfScore, string CpfRank, string IfrScore, string IfrRank, string IsrScore,
 		string IsrRank, string IrnSCore, string IrnRank, string GerScore, string GerRank, string ScoreScaled);
-    void Binary_Search();
+    void BinarySearch();
     void Inter_Search();
     void Reg_Binary_Search();
     void Reg_Inter_Search();
@@ -494,9 +493,15 @@ void University :: InsertToEndList(string rank, string institution, string Locat
         univDLL.InsertEnd(newNode);
 }
 
-void University :: Binary_Search()
+void University :: BinarySearch()
 {
-    //
+    string target;
+    cout << "Welcome to the Binary Search Menu!";
+    cout << "Please enter the university name: ";
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(),'\n');
+    getline(cin, target);
+    NormalBinarySearch(univDLL.head, target);
 }
 
 void University :: Reg_Binary_Search()
@@ -505,9 +510,8 @@ void University :: Reg_Binary_Search()
 }
 
 void University :: Inter_Search()
-
 {
-    string input;
+string input;
     int opt, type;
     cout << "\nWelcome to the Interpolation Search Menu" << endl;
     cout << "\nHow do you want to search the universities?" << endl;
@@ -548,7 +552,7 @@ void University :: Inter_Search()
     cin.ignore();
     getline(cin, input);
 
-    University* result = InterpolationSearch(univDLL.head, input, type);
+    University* result = IntSearch(univDLL.head, input, type);
 
     if (result != nullptr) {
         result->display();
@@ -1120,7 +1124,7 @@ void UserMainMenu(University * uni, User * user, RegisteredUser * reguser, Admin
                 switch (option)
                 {
                     case 1:
-                        uni -> Binary_Search();
+                        uni-> BinarySearch();
                         break;
                     case 2:
                         uni -> Inter_Search();

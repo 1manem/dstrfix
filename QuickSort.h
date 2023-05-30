@@ -3,95 +3,54 @@
 // #include <sstream>
 // #include <string>
 // using namespace std;
+// template <class Node>
+// void swapNodes(Node* a, Node* b) {
+//     if (a == nullptr || b == nullptr)
+//         return;
 
-// struct Node {
-//     string data;
-//     struct Node* next;
-//     struct Node* prev;
-// };
+//     // Swap the next pointers
+//     Node* temp = a->nextAdd;
+//     a->nextAdd = b->nextAdd;
+//     b->nextAdd = temp;
 
-// void printList(struct Node* node)
-// {
-//     cout << "Sorted list:" << endl;
-//     while (node != NULL) {
-//         cout << node->data << endl;
-//         node = node->next;
-//     }
+//     // Swap the prev pointers
+//     temp = a->prevAdd;
+//     a->prevAdd = b->prevAdd;
+//     b->prevAdd = temp;
+
+//     // Update the next node's prev pointer
+//     if (a->nextAdd != nullptr)
+//         a->nextAdd->prevAdd = a;
+//     if (b->nextAdd != nullptr)
+//         b->nextAdd->prevAdd = b;
+
+//     // Update the prev node's next pointer
+//     if (a->prevAdd != nullptr)
+//         a->prevAdd->nextAdd = a;
+//     if (b->prevAdd != nullptr)
+//         b->prevAdd->nextAdd = b;
 // }
 
-// struct Node* getTail(struct Node* cur)
-// {
-//     while (cur != NULL && cur->next != NULL)
-//         cur = cur->next;
-//     return cur;
-// }
+// Node* partition(Node* low, Node* high) {
+//     double pivot = high->ScoreScaled;
+//     Node* i = low->prevAdd;
 
-// struct Node* partition(struct Node* head, struct Node* end,
-//                        struct Node** newHead,
-//                        struct Node** newEnd)
-// {
-//     struct Node* pivot = end;
-//     struct Node *prev = NULL, *cur = head, *tail = pivot;
-
-//     while (cur != pivot) {
-//         if (cur->data < pivot->data) {
-//             if ((*newHead) == NULL)
-//                 (*newHead) = cur;
-
-//             prev = cur;
-//             cur = cur->next;
-//         }
-//         else {
-//             if (prev)
-//                 prev->next = cur->next;
-//             struct Node* tmp = cur->next;
-//             cur->next = NULL;
-//             cur->prev = NULL;
-//             tail->next = cur;
-//             cur->prev = tail;
-//             tail = cur;
-//             cur = tmp;
+//     for (Node* j = low; j != high; j = j->nextAdd) {
+//         if (j->ScoreScaled <= pivot) {
+//             i = (i == nullptr) ? low : i->nextAdd;
+//             swapNodes(i, j);
 //         }
 //     }
 
-//     if ((*newHead) == NULL)
-//         (*newHead) = pivot;
-
-//     (*newEnd) = tail;
-
-//     return pivot;
+//     i = (i == nullptr) ? low : i->nextAdd;
+//     swapNodes(i, high);
+//     return i;
 // }
 
-// struct Node* quickSortRecur(struct Node* head, struct Node* end)
-// {
-//     if (!head || head == end)
-//         return head;
-
-//     Node* newHead = NULL, * newEnd = NULL;
-//     struct Node* pivot = partition(head, end, &newHead, &newEnd);
-
-//     if (newHead != pivot) {
-//         struct Node* tmp = newHead;
-//         while (tmp->next != pivot)
-//             tmp = tmp->next;
-//         tmp->next = NULL;
-
-//         newHead = quickSortRecur(newHead, tmp);
-
-//         tmp = getTail(newHead);
-//         tmp->next = pivot;
-//         pivot->prev = tmp;
+// void quickSort(DoubleLinkedList<University>& univDLL, Node* low, Node* high) {
+//     if (low != nullptr && high != nullptr && low != high && high->nextAdd != low) {
+//         University* pivot = partition(low, high);
+//         quickSort(univDLL, low, pivot->prevAdd);
+//         quickSort(univDLL, pivot->nextAdd, high);
 //     }
-
-//     pivot->next = quickSortRecur(pivot->next, newEnd);
-//     if (pivot->next != NULL)
-//         pivot->next->prev = pivot;
-
-//     return newHead;
-// }
-
-// void quickSort(struct Node** headRef)
-// {
-//     (*headRef) = quickSortRecur(*headRef, getTail(*headRef));
-//     return;
 // }
