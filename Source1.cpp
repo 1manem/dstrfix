@@ -776,7 +776,7 @@ void displayQuickSortedUserFav(){
 };
 class RegisteredUser {
 public:
-    void displayMenu() {
+    void displayMenu(University * uni, Admin * admin, Favorite * Favorite, Feedback * feedb) {
         int choice;
 
         do {
@@ -785,28 +785,49 @@ public:
             std::cout << "2. Display University Faculty and Student Ratio Score" << std::endl;
             std::cout << "3. Display University Employee Reputation Score" << std::endl;
             std::cout << "4. Search University" << std::endl;
-            std::cout << "5. Logout" << std::endl;
+            // std::cout << "5. Logout" << std::endl;
             std::cout << "6. Exit" << std::endl;
             std::cout << "Enter your choice: ";
             std::cin >> choice;
 
             switch (choice) {
             case 1:
-                SortUniversities();
-                break;
+                int op;
+                cout << "Choose a sorting algorithm" << endl;
+                cout << "1. Merge Sort" << endl;
+                cout << "2. Quick Sort" << endl;
+                cin >> op;
+                switch (op)
+                {
+                    //
+                }
             case 2:
-                SortUniversities();
-                break;
+                int opt;
+                cout << "Choose a sorting algorithm" << endl;
+                cout << "1. Merge Sort" << endl;
+                cout << "2. Quick Sort" << endl;
+                cin >> opt;
+                switch (opt)
+                {
+                    //
+                }
             case 3:
-                SortUniversities();
-                break;
+                int option;
+                cout << "Choose a sorting algorithm" << endl;
+                cout << "1. Merge Sort" << endl;
+                cout << "2. Quick Sort" << endl;
+                cin >> option;
+                switch (option)
+                {
+                    //
+                }
             case 4:
-                SearchUniversities();
+                uni->Reg_Inter_Search();
                 break;
-            case 5:
-                // user.UserMainMenu();
-                break;
-            case 7:
+            // case 5:
+            //     // user->UserMainMenu();
+            //     // break;
+            case 6:
                 std::cout << "Exiting..." << std::endl;
                 break;
             default:
@@ -1030,11 +1051,11 @@ void UserMainMenu(University * uni, User * user, RegisteredUser * reguser, Admin
 
 		switch(Menu) {
 			case 1:
-				void SignUp();
+				user->SignUp();
 				break;
 
 			case 2:
-				void Login();
+				user->Login();
 				break;
 
 			case 3:
@@ -1042,12 +1063,42 @@ void UserMainMenu(University * uni, User * user, RegisteredUser * reguser, Admin
 				break;
 
 			case 4:
-				void SearchUniversity();
-				break;
+				int option;
+                cout << "Choose a searching algorithm" << endl;
+                cout << "1. Binary Search" << endl;
+                cout << "2. Interpolation Search" << endl;
+                cin >> option;
+                switch (option)
+                {
+                    case 1:
+                        uni -> Binary_Search();
+                        break;
+                    case 2:
+                        uni -> Inter_Search();
+                        break;
+                    default:
+                        cout << "Invalid choice" << endl;
+                        break;
+                }
 
 			case 5:
-				void SortUniversities();
-				break;
+                int choice;
+                cout << "Choose a sorting algorithm" << endl;
+                cout << "1. Merge Sort" << endl;
+                cout << "2. Quick Sort" << endl;
+                cin >> choice;
+                switch (choice)
+                {
+                    case 1:
+                        //
+                        break;
+                    case 2:
+                        //
+                        break;
+                    default:
+                        cout << "Invalid choice" << endl;
+                        break;
+                }
 
 			case 6:
 				cout << "Thank You for Visiting the Universities Ranking System, Have a Nice Day!" << endl;
