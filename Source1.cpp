@@ -505,9 +505,59 @@ void University :: Reg_Binary_Search()
 }
 
 void University :: Inter_Search()
+
 {
-    //
+    string input;
+    int opt, type;
+    cout << "\nWelcome to the Interpolation Search Menu" << endl;
+    cout << "\nHow do you want to search the universities?" << endl;
+    cout << "1. Rank" << endl;
+    cout << "2. Institution" << endl;
+    cout << "3. Location Code" << endl;
+    cout << "4. Location" << endl;
+    cout << "5. Academic Reputation Rank" << endl;
+    cout << "6. Employer Reputation Rank" << endl;
+    cin >> opt;
+    cin.clear();
+
+    if (opt == 1) {
+        type = 1;
+    }
+    else if (opt == 2) {
+        type = 2;
+    }
+    else if (opt == 3) {
+        type = 3;
+    }
+    else if (opt == 4) {
+        type = 4;
+    }
+    else if (opt == 5) {
+        type = 5;
+    }
+    else if (opt == 6) {
+        type = 6;
+    }
+    else {
+        cout << "ERROR" << endl;
+        return;
+    }
+
+    cout << "Enter what to search: ";
+    cin.clear();
+    cin.ignore();
+    getline(cin, input);
+
+    University* result = InterpolationSearch(univDLL.head, input, type);
+
+    if (result != nullptr) {
+        result->display();
+    }
+    else {
+        cout << "UNIVERSITY NOT FOUND" << endl;
+    }
 }
+
 
 void University :: Reg_Inter_Search()
 {
@@ -801,6 +851,7 @@ public:
                 {
                     //
                 }
+            break;
             case 2:
                 int opt;
                 cout << "Choose a sorting algorithm" << endl;
@@ -811,6 +862,7 @@ public:
                 {
                     //
                 }
+            break;
             case 3:
                 int option;
                 cout << "Choose a sorting algorithm" << endl;
@@ -821,6 +873,7 @@ public:
                 {
                     //
                 }
+            
             case 4:
                 uni->Reg_Inter_Search();
                 break;
@@ -988,7 +1041,6 @@ public:
 			cerr << "The Sign Up Process is Unsuccessful, Please Try Again!" << endl;
 
 		}
-
 	}
 
 	void static Login() {
@@ -1053,15 +1105,12 @@ void UserMainMenu(University * uni, User * user, RegisteredUser * reguser, Admin
 			case 1:
 				user->SignUp();
 				break;
-
 			case 2:
 				user->Login();
 				break;
-
 			case 3:
 				uni->display_univinfo();
 				break;
-
 			case 4:
 				int option;
                 cout << "Choose a searching algorithm" << endl;
@@ -1080,7 +1129,7 @@ void UserMainMenu(University * uni, User * user, RegisteredUser * reguser, Admin
                         cout << "Invalid choice" << endl;
                         break;
                 }
-
+            break;
 			case 5:
                 int choice;
                 cout << "Choose a sorting algorithm" << endl;
@@ -1099,14 +1148,14 @@ void UserMainMenu(University * uni, User * user, RegisteredUser * reguser, Admin
                         cout << "Invalid choice" << endl;
                         break;
                 }
-
+            break;
 			case 6:
 				cout << "Thank You for Visiting the Universities Ranking System, Have a Nice Day!" << endl;
 				return;
-
+            break;
 			default:
 				cout << "The Selection is Invalid, Please Select other Options" << endl;
-
+            break;
 		}
 
 	}
@@ -1116,7 +1165,6 @@ int main()
     string rank, institution, locationCode, location, arScore, arRank, erScore, erRank, fsrScore, fsrRank, cpfScore, 
             cpfRank, ifrScore, ifrRank, isrScore, isrRank, irnScore, irnRank, gerScore, gerRank, scoreScaled;
     string username, password;
-    //
     University * uni = new University();
     User * user = new User();
     RegisteredUser * reguser = new RegisteredUser();
@@ -1150,20 +1198,12 @@ int main()
             getline(file, gerScore, ',');
             getline(file, gerRank, ',');
             getline(file, scoreScaled);
-            // if (rank == "Rank")
-            // {
-            //     continue;
-            // }
-            // else if (rank == "")
-            // {
-            //     break;
-            // }
+
             uni-> InsertToEndList(rank, institution, locationCode, location, arScore, arRank, erScore, erRank, fsrScore, 
             fsrRank, cpfScore, cpfRank, ifrScore, ifrRank, isrScore, isrRank, irnScore, irnRank, gerScore, gerRank, scoreScaled);
 
         }
     }
-
 
     UserMainMenu(uni, user, reguser, admin, fav, feedb);
 
