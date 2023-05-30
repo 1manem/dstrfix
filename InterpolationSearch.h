@@ -2,20 +2,15 @@
 using namespace std;
 
 template <typename T>
-T* IntSearch(T* head, string target, int type) {
+T* IntSearch(T* head,T* tail, string target, int type) {
     T* start = head;
     T* end = tail;
-
     switch (type) {
     case 1:
-        cout << "masuk";
-        cout << start << endl << end << endl; target << endl << type << endl;
         while (start != end) {
             T* mid = InterpolationMidPoint(start, end, target, type);
-            cout << start << end << target << type;
-            if (mid->rank == stoi(target)) {
+            if (stoi(target) == mid->rank ) {
                 return mid;
-                cout << mid;
             }
             else if (mid->rank > stoi(target)) {
                 end = mid;
@@ -56,12 +51,14 @@ T* IntSearch(T* head, string target, int type) {
         break;
 
     case 2:
+        cout << "uni";
         while (start != end) {
             T* mid = InterpolationMidPoint(start, end, target, type);
-            if (mid->institution == target) {
+            if (mid->institution.compare(target)) {
+                cout<<"kmkm";
                 return mid;
             }
-            else if (mid->institution > target) {
+            else if (mid->institution != target) {
                 end = mid;
             }
             else {

@@ -10,6 +10,7 @@
         "vector": "cpp",
         "xiosbase": "cpp",
         "xtree": "cpp",
-        "ostream": "cpp"
+        "ostream": "cpp",
+        "iosfwd": "cpp"
     }
 }

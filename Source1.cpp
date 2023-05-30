@@ -496,12 +496,18 @@ void University :: InsertToEndList(string rank, string institution, string Locat
 void University :: BinarySearch()
 {
     string target;
-    cout << "Welcome to the Binary Search Menu!";
-    cout << "Please enter the university name: ";
+    cout << "Welcome to the Binary Search Menu!" << endl;
+    cout << "Please enter the university name : "<< endl;
     cin.clear();
     cin.ignore(numeric_limits<streamsize>::max(),'\n');
     getline(cin, target);
-    NormalBinarySearch(univDLL.head, target);
+    University * point = NormalBinarySearch(univDLL.head, target);
+    if (point != NULL){
+        point->display();
+    }
+    else{
+        cout << "University not Found";
+    }
 }
 
 void University :: Reg_Binary_Search()
@@ -552,7 +558,7 @@ string input;
     cin.ignore();
     getline(cin, input);
 
-    University* result = IntSearch(univDLL.head, input, type);
+    University* result = IntSearch(univDLL.head, univDLL.tail , input, type);
 
     if (result != nullptr) {
         result->display();
