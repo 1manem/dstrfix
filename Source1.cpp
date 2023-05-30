@@ -524,10 +524,7 @@ void University :: Quick_Sort(bool asc)
     //
 }
 
-// bool University :: compareAttributes()
-// {
-//     //
-// }
+
 
 void University :: display()
 {
@@ -658,71 +655,6 @@ class Admin {
     string password;
 };
 
-// void updatePassword(const string& filename) {
-//     DoubleLinkedList<UserNode> userNodeDLL;
-//     ifstream file(filename);
-    
-//     if (!file) {
-//         cout << "Failed to open file: " << filename << endl;
-//         return;
-//     }
-    
-//     UserNode userNode;
-//     string line;
-    
-//     // Read and parse the file
-//     while (getline(file, line)) {
-//         size_t pos = line.find(", ");
-//         if (pos != string::npos) {
-//             userNode.name = line.substr(0, pos);
-//             userNode.password = line.substr(pos + 2);
-//             userNodeDLL.push_back(userNode);
-//         }
-//     }
-    
-//     file.close();
-    
-//     // Ask for the name of the user to update
-//     string nameToUpdate;
-//     cout << "Enter the name of the user to update: ";
-//     getline(cin, nameToUpdate);
-    
-//     // Find the user to update
-//     bool found = false;
-//     for (User& u : users) {
-//         if (u.name == nameToUpdate) {
-//             found = true;
-//             cout << "Enter the new password for " << u.name << ": ";
-//             getline(cin, u.password);
-//             break;
-//         }
-//     }
-    
-//     if (!found) {
-//         cout << "User not found." << endl;
-//         return;
-//     }
-    
-//     // Write the updated users to the file
-//     ofstream outFile(filename);
-//     if (!outFile) {
-//         cout << "Failed to open file: " << filename << endl;
-//         return;
-//     }
-    
-//     for (const User& u : users) {
-//         outFile << u.name << ", " << u.password << endl;
-//     }
-    
-//     outFile.close();
-    
-//     cout << "File updated successfully." << endl;
-// }
-
-// void changeUserPassword(){
-//     const string filename = "userdata.txt";
-//     updatePassword(filename);
-// }
 
 void displayMergeSortedUserData(){
     const string filename = "userdata.csv";
@@ -756,7 +688,37 @@ void displayQuickSortedUserFav(){
 
 
 class RegisteredUser {
+
 public:
+
+    string username;
+	string password;
+    DoubleLinkedList<RegisteredUser>reguDll;
+    RegisteredUser * head,  * tail;
+    RegisteredUser * nextAdd;
+    RegisteredUser * prevAdd;
+
+    RegisteredUser(string name, string institution) {
+            this -> username = name;
+            this -> password = password;
+            this -> nextAdd = NULL;
+            this -> prevAdd = NULL;
+        }
+
+    RegisteredUser(){
+            this -> username = "";
+            this -> password = "";
+            this -> nextAdd = NULL;
+            this -> prevAdd = NULL;
+        }
+
+
+    void addtoRegisteredUser(string username, string password){
+            RegisteredUser* newNode = new RegisteredUser(username, password);
+            reguDll.InsertEnd(newNode);
+        }
+
+
     void displayMenu(University * uni, Admin * admin, Favorite * Favorite, Feedback * feedb) {
         int choice;
 
@@ -817,87 +779,31 @@ public:
         } while (choice != 5);
     }
 
-// private:
+    void display() 
+        {
+            cout<< left << this -> username << ",";
+            cout<< this -> password << endl;
+        }
 
-//     void static SortUniversities() {
+    void display_user()
+        {
+            reguDll.Display();
+        }
 
-//         int sort;
-//         std::cout << "\n Hello, welcome to the sort menu!" << std::endl;
-//         std::cout << "\n Please choose which sort algorithm you wanted to use!" << std::endl;
-//         std::cout << "\n 1. Merge Sort Algorithm" << std::endl;
-//         std::cout << "\n 2. Quick Sort Algorithm" << std::endl;
-//         std::cin >> sort;
-
-//         if (sort == 1) {
-//             void MergeSort();
-//         }
-
-//         else if (sort == 2) {
-//             void QuickSort();
-//         }
-
-//         else {
-//             std::cout << "\n The number you inserted is invalid!" << std::endl;
-//             std::cout << "\n please re - enter your choice!" << std::endl;
-
-//             void SortUniversities();
-//         }
-
-
-//     }
-
-    // void static MergeSort() {
-    // }
-
-    // void static QuickSort() {
-    // }
-
-    // void static SearchUniversities() {
-
-    //     int search;
-    //     std::cout << "\n Hello, welcome to the search menu!" << std::endl;
-    //     std::cout << "\n Please choose which search algorithm you wanted to use!" << std::endl;
-    //     std::cout << "\n 1. Binary Search Algorithm" << std::endl;
-    //     std::cout << "\n 2. Interpolation Search Algorithm" << std::endl;
-    //     std::cin >> search;
-
-    //     if (search == 1) {
-    //         void BinarySearch();
-    //     }
-
-    //     else if (search == 2) {
-    //         void InterpolationSearch();
-    //     }
-
-    //     else {
-    //         std::cout << "\n The number you inserted is invalid!" << std::endl;
-    //         std::cout << "\n please re - enter your choice!" << std::endl;
-    //         void SearchUniversities();
-    //     }
-
-    // }
-
-    // void static BinarySearch() {
-    //     int Choice;
-    //     std::cout << "\n " << std::endl;
-
-
-    // }
-
-    // void static InterpolationSearch() {
-    //     int choice;
-    //     std::cout << "\n" << std::endl;
-
-    // }
+    void header()
+        {
+            cout<< left << this -> username << ",";
+            cout<< this -> password << endl;
+        } 
 
 };
+
 class User{
 
 private:
 
 	string username;
 	string password;
-    DoubleLinkedList<User>udll;
 
 public:
 	
@@ -928,23 +834,6 @@ public:
 		}
 
 	}
-
-    void display() 
-        {
-            cout<< left << this -> username << ",";
-            cout<< this -> password << endl;
-        }
-
-        void display_user()
-        {
-            udll.Display();
-        }
-
-        void header()
-        {
-            cout<< left << this -> username << ",";
-            cout<< this -> password << endl;
-        } 
 
 	void static Login() {
 
