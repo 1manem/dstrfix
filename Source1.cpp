@@ -574,10 +574,10 @@ void University :: Quick_Sort()
     //
 }
 
-bool University :: compareAttributes()
-{
-    //
-}
+// bool University :: compareAttributes()
+// {
+//     //
+// }
 
 void University :: display()
 {
