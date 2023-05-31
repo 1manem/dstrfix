@@ -6,7 +6,6 @@
 #include <iomanip>
 #include <chrono>
 #include <algorithm>
-#include "SingleLinkedList.h"
 #include "DoubleLinkedList.h"
 #include "BinarySearch.h"
 #include "InterpolationSearch.h"
@@ -248,16 +247,6 @@ class Feedback
             fbDLL.Display();
         }
 
-    void header()
-        {
-            cout<< left << this->FbId << ":";
-            cout<< this->username << ":";
-            cout<< this->institution << ":";
-            cout<< this->feedback << ":";
-            cout<< this->fbdate << ":";
-            cout<< this->fbreply << ":";
-            cout<< this->fbreply_date << endl;
-        }
 };
 
 class University 
@@ -904,30 +893,9 @@ private:
 
 	string username;
 	string password;
-    // DoubleLinkedList<User>udll;
 
 public:
 	
-
-
-    // void display() 
-    //     {
-    //         cout<< left << this -> username << ",";
-    //         cout<< this -> password << endl;
-    //     }
-
-    //     void display_user()
-    //     {
-    //         udll.Display();
-    //     }
-
-    //     void header()
-    //     {
-    //         cout<< left << this -> username << ",";
-    //         cout<< this -> password << endl;
-    //     } 
-
-    
 }; 
 class Admin {
     public:
@@ -1061,10 +1029,6 @@ class Admin {
                 admin->adminmenu(uni, fav, feedb, reguser, admin);
                 file.close();
 			    }
-                // else{
-                //     cout << "Invalid user" << endl;
-                // }
-
 		}
 
 
@@ -1112,24 +1076,24 @@ class Admin {
 	}
 
     void modifyRegUser(string username, string password, RegisteredUser* reguser) {
-        cout << "Enter Username to modify :"<< endl;
-        cin >> username;
-        cout << "Enter new password :"<< endl;
-        cin >> password;
-        cout << "Password has been updated"<< endl;
+        // cout << "Enter Username to modify :"<< endl;
+        // cin >> username;
+        // cout << "Enter new password :"<< endl;
+        // cin >> password;
+        // cout << "Password has been updated"<< endl;
         // // RegisteredUser* reguesr = IntSearch(reguDll.head, reguDll.tail , username, 1);
         // reguser->reguDll.remove(1);
         // ofstream file("userdata.csv", ios::app);
 		// if (file.is_open()) {
 		// 	file << username << "," << password << "\n";
 		// 	file.close();
-		// 	cout << "Password upd" << endl;
+        //     cout << "Password has been updated"<< endl;
 
-		// }
+		// // }
     }
-};
 
-   
+
+};
 
 
 void UserMainMenu(University * uni, User * user, RegisteredUser * reguser, Admin * admin, Favorite * Favorite, Feedback * feedb) {
