@@ -883,7 +883,7 @@ void favourite(){
     cout << "Choose the university to be save: ";
 	cin >> ans;
 	cin.ignore(numeric_limits<streamsize>::max(), '\n');
-    cout << "Thank you" << endl;
+    cout << "Thank you"   << endl;
 }
 
 void display() 
@@ -1014,7 +1014,7 @@ class Admin {
                     {
                         cout << "Feedback ID not found."<< endl;
                     }
-                    std::cout << "reply" << std::endl;
+
                     break;
                 }
                 break;
