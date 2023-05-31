@@ -504,9 +504,14 @@ void University :: BinarySearch()
     cin.clear();
     cin.ignore(numeric_limits<streamsize>::max(),'\n');
     getline(cin, target);
+    auto start = std::chrono::high_resolution_clock::now();
     University * point = NormalBinarySearch(univDLL.head, target);
     if (point != NULL){
         point->display();
+        auto stop = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> diff = stop - start;
+        std::cout<< "Time Taken: " << diff.count() << " s\n";
+
     }
     else{
         cout << "University not Found";
@@ -529,9 +534,13 @@ void University :: Reg_Binary_Search()
     cin.clear();
     cin.ignore(numeric_limits<streamsize>::max(),'\n');
     getline(cin, target);
+    auto start = std::chrono::high_resolution_clock::now();
     University * point = MemberBinarySearch(univDLL.head, target, type);
     if (point != NULL){
         point->display();
+        auto stop = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> diff = stop - start;
+        std::cout<< "Time Taken: " << diff.count() << " s\n";
     }
     else{
         cout << "Attributes not Found";
@@ -540,7 +549,28 @@ void University :: Reg_Binary_Search()
 
 void University :: Inter_Search()
 {
-string input;
+    string input;
+    cout << "Enter what to search: ";
+    cin.clear();
+    cin.ignore();
+    getline(cin, input);
+    auto start = std::chrono::high_resolution_clock::now();
+    University* result = IntSearch(univDLL.head, univDLL.tail , input, 1);
+    if (result != nullptr) {
+        result->display();
+        auto stop = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> diff = stop - start;
+        std::cout<< "Time Taken: " << diff.count() << " s\n";
+    }
+    else {
+        cout << "UNIVERSITY NOT FOUND" << endl;
+    }
+}
+
+
+void University :: Reg_Inter_Search()
+{
+    string input;
     int opt, type;
     cout << "\nWelcome to the Interpolation Search Menu" << endl;
     cout << "\nHow do you want to search the universities?" << endl;
@@ -580,36 +610,41 @@ string input;
     cin.clear();
     cin.ignore();
     getline(cin, input);
-
+    auto start = std::chrono::high_resolution_clock::now();
     University* result = IntSearch(univDLL.head, univDLL.tail , input, type);
-
     if (result != nullptr) {
         result->display();
+        auto stop = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> diff = stop - start;
+        std::cout<< "Time Taken: " << diff.count() << " s\n";
     }
     else {
         cout << "UNIVERSITY NOT FOUND" << endl;
     }
 }
 
-
-void University :: Reg_Inter_Search()
-{
-    //
-}
-
 void University :: MergeSortAlgo(bool asc)
 {
+    auto start = std::chrono::high_resolution_clock::now();
     University* MergeSort(univDLL.head);
     display_univinfo();
+    auto stop = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> diff = stop - start;
+    std::cout<< "Time Taken: " << diff.count() << " s\n";
+
 }
 
 void University :: Quick_Sort(bool asc)
 {
+    auto start = std::chrono::high_resolution_clock::now();
     QuickSort(univDLL.head,univDLL.tail,asc);
     // sort([](const University* a, const University* b) {
     //     return a->institution < b->institution;
     // });
     display_univinfo();
+    auto stop = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> diff = stop - start;
+    std::cout<< "Time Taken: " << diff.count() << " s\n";
 }
 
 // bool University :: compareAttributes()
@@ -727,7 +762,20 @@ public:
                 }
             
             case 4:
-                uni->Reg_Inter_Search();
+                cout << "Choose a searching algorithm" << endl;
+                cout << "1. Binary Search" << endl;
+                cout << "2. Interpolation Search" << endl;
+                cin >> option;
+                switch (option)
+                {
+                    case 1:
+                        uni->Reg_Binary_Search();
+                        break;
+                    case 2:
+                        uni->Reg_Inter_Search();
+                        break;
+                }
+
                 break;
             case 5:
                 //feedback
@@ -884,7 +932,7 @@ class Admin {
             std::cout << "4. Generate Report" << std::endl;
             std::cout << "5. Logout\n" << std::endl;
             std::cout << "==========================================\n" << std::endl;
-            std::cout << "Please select an option (1-4): " << std::endl;
+            std::cout << "Please select an option (1-5): " << std::endl;
             std::cin >> choice;
 
             switch (choice) {
@@ -893,8 +941,8 @@ class Admin {
 
                 std::cout << "1. Display User\n" << std::endl;
                 std::cout << "2. Delete User\n" << std::endl;
-                std::cout << "2. Modify User\n" << std::endl;
-                std::cout << "3. Exit\n\n" << std::endl;
+                std::cout << "3. Modify User\n" << std::endl;
+                std::cout << "4. Exit\n\n" << std::endl;
                 std::cout << "Choose:" << std::endl;
                 std::cin >> sortchoice;
 
@@ -980,14 +1028,13 @@ class Admin {
                     reguser->reguserMenu(uni);
 					return;
 				}
-
-			}
-			file.close();
+                else if (UsernameEntered == "Admin" && PasswordEntered == "Password") {
+                admin->adminmenu(uni, fav, feedb);
+                file.close();
+			    }
 
 		}
-        else if (UsernameEntered == "Admin" && PasswordEntered == "Password") {
-            admin->adminmenu(uni, fav, feedb);
-            file.close();
+
 
         }
 		else {
