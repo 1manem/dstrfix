@@ -9,13 +9,13 @@ Node* Partition(Node* low, Node* high, bool asc) {
 
         for (Node* j = low; j != high; j = j->nextAdd) {
             if (asc){
-            if (j->rank >= pivot) {
+            if (j->rank <= pivot) {
                 i = (i == nullptr) ? low : i->nextAdd;
                 std::swap(i->rank, j->rank);
             }
             }
             else{
-                if (j->rank <= pivot) {
+                if (j->rank >= pivot) {
                 i = (i == nullptr) ? low : i->nextAdd;
                 std::swap(i->rank, j->rank);
             }
