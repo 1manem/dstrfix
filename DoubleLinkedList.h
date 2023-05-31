@@ -50,7 +50,7 @@ public:
             Node* temp = head;
             head = head->next;
             if (head != nullptr) {
-                head->prev = nullptr;
+                head->prevAdd = nullptr;
             }
             delete temp;
             return;
