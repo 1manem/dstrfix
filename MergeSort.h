@@ -4,24 +4,48 @@
 #include <string>
 using namespace std;
     template<class Node>
-    Node* Merge(Node* left, Node* right) {
+    Node* Merge(Node* left, Node* right, string type) {
         if (left == nullptr)
             return right;
         if (right == nullptr)
             return left;
 
         Node* result = nullptr;
+        if (type == "rank"){
         if (left->rank >= right->rank) {
             result = left;
             result->nextAdd = Merge(left->nextAdd, right);
             result->nextAdd->prevAdd = result;
         }
+        }
+        else if (type == "arRank"){
+        if (left->ArRank >= right->ArRank) {
+            result = left;
+            result->nextAdd = Merge(left->nextAdd, right);
+            result->nextAdd->prevAdd = result;
+        }
+        }
+        else if(type == "fsrScore"){
+            if (left->FsrScore >= right->FsrScore) {
+            result = left;
+            result->nextAdd = Merge(left->nextAdd, right);
+            result->nextAdd->prevAdd = result;
+        }
+        }
+        else if (type == "erRank"){
+            if (left->ErRank >= right->ErRank) {
+            result = left;
+            result->nextAdd = Merge(left->nextAdd, right);
+            result->nextAdd->prevAdd = result;
+        }
+        }
+        
         else {
             result = right;
             result->nextAdd = Merge(left, right->nextAdd);
             result->nextAdd->prevAdd = result;
         }
-
+        
         return result;
     }
     template<class Node>

@@ -371,8 +371,8 @@ public:
     void Inter_Search();
     void Reg_Binary_Search();
     void Reg_Inter_Search();
-    void MergeSortAlgo(bool asc);
-    void Quick_Sort(bool asc);
+    void MergeSortAlgo(bool asc, string type);
+    void Quick_Sort(bool asc, string type);
     void MergeSortAlgo();
     void Quick_Sort();
     void display_univinfo();
@@ -666,7 +666,7 @@ void University :: Reg_Inter_Search()
     }
 }
 
-void University :: MergeSortAlgo(bool asc)
+void University :: MergeSortAlgo(bool asc, string type)
 {
     auto start = std::chrono::high_resolution_clock::now();
     University* MergeSort(univDLL.head);
@@ -677,13 +677,10 @@ void University :: MergeSortAlgo(bool asc)
 
 }
 
-void University :: Quick_Sort(bool asc)
+void University :: Quick_Sort(bool asc, string type)
 {
     auto start = std::chrono::high_resolution_clock::now();
-    QuickSort(univDLL.head,univDLL.tail,asc);
-    // sort([](const University* a, const University* b) {
-    //     return a->institution < b->institution;
-    // });
+    QuickSort(univDLL.head,univDLL.tail,asc,type);
     display_univinfo();
     auto stop = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> diff = stop - start;
@@ -722,7 +719,12 @@ void University :: display()
 
 void University :: display_univinfo()
 {
+    auto start = std::chrono::high_resolution_clock::now();
     univDLL.Display();
+    auto stop = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> diff = stop - start;
+    std::cout<< "Time Taken: " << diff.count() << " s\n";
+    return;
 }
 
 
@@ -769,7 +771,7 @@ public:
             std::cout << "=== Main Menu ===" << std::endl;
             std::cout << "1. Display University Academic Ranking" << std::endl;
             std::cout << "2. Display University Faculty and Student Ratio Score" << std::endl;
-            std::cout << "3. Display University Employee Reputation Score" << std::endl;
+            std::cout << "3. Display University Employee Reputation Rank" << std::endl;
             std::cout << "4. Search University" << std::endl;
             std::cout << "5. Give Feedback" << std::endl;
             std::cout << "6. Favorite" << std::endl;
@@ -788,7 +790,22 @@ public:
                 switch (op)
                 {
                     case 1:
-                        uni->MergeSortAlgo(asc);
+                        uni->MergeSortAlgo(asc, "arRank");
+                    break;
+                    case 2:
+                        int ans;
+                        cout << "In order of"<< endl;
+                        cout << "1. Ascending" << endl;
+                        cout << "2. Decending" << endl;
+                        cin >> ans;
+                        switch (ans){
+                            case 1:
+                                uni->Quick_Sort(true, "arRank");
+                            break;
+                            case 2:
+                                uni->Quick_Sort(false, "arRank");
+                                break;
+                        }
                 }
             break;
             case 2:
@@ -799,7 +816,23 @@ public:
                 cin >> opt;
                 switch (opt)
                 {
-                    //
+                    case 1:
+                        uni->MergeSortAlgo(asc, "fsrScore");
+                    break;
+                    case 2:
+                        int ans;
+                        cout << "In order of"<< endl;
+                        cout << "1. Ascending" << endl;
+                        cout << "2. Decending" << endl;
+                        cin >> ans;
+                        switch (ans){
+                            case 1:
+                                uni->Quick_Sort(true, "fsrScore");
+                            break;
+                            case 2:
+                                uni->Quick_Sort(false, "fsrScore");
+                                break;
+                        }
                 }
             break;
             case 3:
@@ -810,7 +843,23 @@ public:
                 cin >> option;
                 switch (option)
                 {
-                    //
+                    case 1:
+                        uni->MergeSortAlgo(asc, "erRank");
+                        break;
+                    case 2:
+                        int ans;
+                        cout << "In order of"<< endl;
+                        cout << "1. Ascending" << endl;
+                        cout << "2. Decending" << endl;
+                        cin >> ans;
+                        switch (ans){
+                            case 1:
+                                uni->Quick_Sort(true, "arRank");
+                            break;
+                            case 2:
+                                uni->Quick_Sort(false, "arRank");
+                                break;
+                        }
                 }
             
             case 4:
@@ -966,7 +1015,7 @@ public:
     //     } 
 
     
-};
+}; 
 class Admin {
     public:
 
@@ -987,7 +1036,8 @@ class Admin {
             std::cout << "==========================================\n" << std::endl;
             std::cout << "Please select an option (1-5): " << std::endl;
             std::cin >> choice;
-
+            Feedback feedback; 
+                    string FbID;
             switch (choice) {
             case 1: //view user details
                 int sortchoice;
@@ -1019,50 +1069,45 @@ class Admin {
                 }
                 break;
             case 2: //view user feedback
-                int sortchoice2;
-
-                std::cout << "1. Display Feedback\n" << std::endl;
-                std::cout << "2. Reply Feedback\n" << std::endl;
-                std::cout << "3. Exit\n\n" << std::endl;
-                std::cout << "Choose:" << std::endl;
-                std::cin >> sortchoice2;
-                switch (sortchoice2) {
-                case 1:
-                    feedb -> display_feedback();
-                    break;
-                case 2:
-                    Feedback feedback; 
-                    string FbID;
-                    cout << "Please enter the wanted feedback ID: ";
-                    cin >> FbID;
-                    Feedback* foundFeedback = feedback.searchFeedback(FbID);
-                    if (foundFeedback != nullptr)
-                    {
-                        string reply;
-                        cout << "Please enter your reply: ";
-                        cin.ignore(); 
-                        getline(cin, reply);
-
-                        foundFeedback->setfbreply(reply);
-                        foundFeedback->setfbreply_date(feedb.fbtime);
-                        feedback.addToFile();
-                        cout << "Reply added successfully." << endl;
-                    }
-                    else
-                    {
-                        cout << "Feedback ID not found."<< endl;
-                    }
-                    std::cout << "reply" << std::endl;
-                    break;
-                case 3:
-                    adminmenu(uni,fav,feedb, reguser, admin) ;
-                    break;
-                default:
-                    std::cout << "Invalid Input!" << std::endl;
-                    adminmenu(uni,fav,feedb, reguser, admin) ;
-                    break;
-                }
-                break;
+                // int sortchoice2;
+                // std::cout << "1. Display Feedback\n" << std::endl;
+                // std::cout << "2. Reply Feedback\n" << std::endl;
+                // std::cout << "3. Exit\n\n" << std::endl;
+                // std::cout << "Choose:" << std::endl;
+                // std::cin >> sortchoice2;
+                // switch (sortchoice2) {
+                // case 1:
+                //     feedb -> display_feedback();
+                //     break;
+                // case 2:
+                //     cout << "Please enter the wanted feedback ID: ";
+                //     cin >> FbID;
+                //     Feedback* foundFeedback = feedback.searchFeedback(FbID);
+                //     if (foundFeedback != nullptr)
+                //     {
+                //         string reply;
+                //         cout << "Please enter your reply: ";
+                //         cin.ignore(); 
+                //         getline(cin, reply);
+                //         foundFeedback->setfbreply(reply);
+                //         // foundFeedback->setfbreply_date(fbtime);
+                //         feedback.addToFile();
+                //         cout << "Reply added successfully." << endl;
+                //     }
+                //     else
+                //     {
+                //         cout << "Feedback ID not found."<< endl;
+                //     }
+                //     std::cout << "reply" << std::endl;
+                //     break;
+                // case 3:
+                //     adminmenu(uni,fav,feedb, reguser, admin) ;
+                //     break;
+                // default:
+                //     std::cout << "Invalid Input!" << std::endl;
+                //     adminmenu(uni,fav,feedb, reguser, admin) ;
+                //     break;
+                // }
             case 3: //view customers favorite unis
                 fav -> display_fav();
                 break;
@@ -1221,7 +1266,7 @@ void UserMainMenu(University * uni, User * user, RegisteredUser * reguser, Admin
                             default:
                                 break;
                         }
-                        uni->MergeSortAlgo(asc);
+                        uni->MergeSortAlgo(asc, "rank");
                         break;
                     case 2:
                         int answer;
@@ -1240,7 +1285,7 @@ void UserMainMenu(University * uni, User * user, RegisteredUser * reguser, Admin
                             default:
                                 break;
                         }
-                        uni->Quick_Sort(asc);;
+                        uni->Quick_Sort(asc,"rank");;
                         break;
                     default:
                         cout << "Invalid choice" << endl;
