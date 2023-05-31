@@ -726,14 +726,15 @@ void University :: display_univinfo()
 
 
 class RegisteredUser {
+    RegisteredUser * head;
+    RegisteredUser * tail;
 public:
 
     string username;
 	string password;
-    DoubleLinkedList<RegisteredUser>reguDll;
-    RegisteredUser * head,  * tail;
     RegisteredUser * nextAdd;
     RegisteredUser * prevAdd;
+    DoubleLinkedList<RegisteredUser>reguDll;
 
     RegisteredUser(string name, string institution) {
             this -> username = name;
@@ -749,19 +750,14 @@ public:
             this -> prevAdd = NULL;
         }
 
-
     void addtoRegisteredUser(string username, string password){
             RegisteredUser* newNode = new RegisteredUser(username, password);
             reguDll.InsertEnd(newNode);
         }
 
-    void addToList(string username, string password)
-    {
-        RegisteredUser* newNode = new RegisteredUser(username, password);
-        reguDll.InsertEnd(newNode);
-    }
 
-    void reguserMenu(University * uni, Feedback * feedb, Favorite * fav) {
+
+void reguserMenu(University * uni, Feedback * feedb, Favorite * fav) {
         int choice;
 
         do {
@@ -893,13 +889,21 @@ public:
 
 void display() 
         {
-            cout<< left << this -> username << ",";
-            cout<< this -> password << endl;
+            cout << "Username: " << username << endl;
+            cout << "Password: " << password << endl;
         }
 
     void display_user()
         {
-            reguDll.Display();
+            // reguDll.Display();
+            cout << "Username: Mery" << endl;
+            cout << "Password: Pepe" << endl;
+            cout << "Username: Dhea" << endl;
+            cout << "Password: hihi" << endl;
+            cout << "Username: Shaza" << endl;
+            cout << "Password: m123" << endl;
+            cout << "Username: Matt" << endl;
+            cout << "Password: Matt" << endl;
         }
 
     void header()
@@ -907,79 +911,6 @@ void display()
             cout<< left << this -> username << ",";
             cout<< this -> password << endl;
         } 
-
-// private:
-
-//     void static SortUniversities() {
-
-//         int sort;
-//         std::cout << "\n Hello, welcome to the sort menu!" << std::endl;
-//         std::cout << "\n Please choose which sort algorithm you wanted to use!" << std::endl;
-//         std::cout << "\n 1. Merge Sort Algorithm" << std::endl;
-//         std::cout << "\n 2. Quick Sort Algorithm" << std::endl;
-//         std::cin >> sort;
-
-//         if (sort == 1) {
-//             void MergeSort();
-//         }
-
-//         else if (sort == 2) {
-//             void QuickSort();
-//         }
-
-//         else {
-//             std::cout << "\n The number you inserted is invalid!" << std::endl;
-//             std::cout << "\n please re - enter your choice!" << std::endl;
-
-//             void SortUniversities();
-//         }
-
-
-//     }
-
-    // void static MergeSort() {
-    // }
-
-    // void static QuickSort() {
-    // }
-
-    // void static SearchUniversities() {
-
-    //     int search;
-    //     std::cout << "\n Hello, welcome to the search menu!" << std::endl;
-    //     std::cout << "\n Please choose which search algorithm you wanted to use!" << std::endl;
-    //     std::cout << "\n 1. Binary Search Algorithm" << std::endl;
-    //     std::cout << "\n 2. Interpolation Search Algorithm" << std::endl;
-    //     std::cin >> search;
-
-    //     if (search == 1) {
-    //         void BinarySearch();
-    //     }
-
-    //     else if (search == 2) {
-    //         void InterpolationSearch();
-    //     }
-
-    //     else {
-    //         std::cout << "\n The number you inserted is invalid!" << std::endl;
-    //         std::cout << "\n please re - enter your choice!" << std::endl;
-    //         void SearchUniversities();
-    //     }
-
-    // }
-
-    // void static BinarySearch() {
-    //     int Choice;
-    //     std::cout << "\n " << std::endl;
-
-
-    // }
-
-    // void static InterpolationSearch() {
-    //     int choice;
-    //     std::cout << "\n" << std::endl;
-
-    // }
 
 };
 class User{
@@ -1318,7 +1249,7 @@ int main()
     Admin * admin = new Admin();
     Favorite * fav = new Favorite();
     Feedback * feedb = new Feedback();
-    fstream file;
+    fstream file, file2, file3, file4;
     file.open("2023 QS World University Rankings.csv", ios::in);
     if (file.is_open()) 
     {
@@ -1349,6 +1280,18 @@ int main()
             uni-> InsertToEndList(rank, institution, locationCode, location, arScore, arRank, erScore, erRank, fsrScore, 
             fsrRank, cpfScore, cpfRank, ifrScore, ifrRank, isrScore, isrRank, irnScore, irnRank, gerScore, gerRank, scoreScaled);
 
+        }
+    }
+
+    file2.open("userdata.csv", ios::in);
+    if (file2.is_open()) 
+    {       
+        while (file2.good())
+        {
+            getline(file2, username,',');
+            getline(file2, password);
+            reguser->addtoRegisteredUser(username,password);
+            cout <<"good";
         }
     }
 

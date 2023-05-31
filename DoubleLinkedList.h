@@ -73,7 +73,6 @@ public:
 
      void Display() {
         Node* current = head;
-        cout << "f";
         while (current != nullptr) 
         {
             current->display();
