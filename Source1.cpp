@@ -853,10 +853,10 @@ void reguserMenu(University * uni, Feedback * feedb, Favorite * fav) {
 
                 break;
             case 5:
-                //
+                feedback();
                 break;
             case 6:
-                //favorite
+                favourite();
                 break;
             case 7:
                 std::cout << "Exiting..." << std::endl;
@@ -867,6 +867,24 @@ void reguserMenu(University * uni, Feedback * feedb, Favorite * fav) {
             }
         } while (choice != 5);
     }
+
+void feedback(){
+    string ans,feedback;
+    cout << "Choose the university to be save: ";
+	cin >> ans;
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
+	cout << "What's your feedback? :" << endl;
+	cin >> feedback;
+    cout << "Thank you for the feedback";
+}
+
+void favourite(){
+    string ans,feedback;
+    cout << "Choose the university to be save: ";
+	cin >> ans;
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    cout << "Thank you" << endl;
+}
 
 void display() 
         {
@@ -1095,9 +1113,9 @@ class Admin {
 
     void modifyRegUser(string username, string password, RegisteredUser* reguser) {
         cout << "Enter Username to modify :"<< endl;
-        // cin >> username;
+        cin >> username;
         cout << "Enter new password :"<< endl;
-        // cin >> password;
+        cin >> password;
         cout << "Password has been updated"<< endl;
         // // RegisteredUser* reguesr = IntSearch(reguDll.head, reguDll.tail , username, 1);
         // reguser->reguDll.remove(1);
