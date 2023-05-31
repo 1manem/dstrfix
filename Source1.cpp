@@ -650,7 +650,34 @@ void University :: display_univinfo()
 
 class RegisteredUser {
 public:
-void reguserMenu(University * uni) {
+
+    string username;
+	string password;
+    DoubleLinkedList<RegisteredUser>reguDll;
+    RegisteredUser * head,  * tail;
+    RegisteredUser * nextAdd;
+    RegisteredUser * prevAdd;
+
+    RegisteredUser(string name, string institution) {
+            this -> username = name;
+            this -> password = password;
+            this -> nextAdd = NULL;
+            this -> prevAdd = NULL;
+        }
+
+    RegisteredUser(){
+            this -> username = "";
+            this -> password = "";
+            this -> nextAdd = NULL;
+            this -> prevAdd = NULL;
+        }
+
+
+    void addtoRegisteredUser(string username, string password){
+            RegisteredUser* newNode = new RegisteredUser(username, password);
+            reguDll.InsertEnd(newNode);
+        }
+    void reguserMenu(University * uni) {
         int choice;
 
         do {
@@ -659,8 +686,9 @@ void reguserMenu(University * uni) {
             std::cout << "2. Display University Faculty and Student Ratio Score" << std::endl;
             std::cout << "3. Display University Employee Reputation Score" << std::endl;
             std::cout << "4. Search University" << std::endl;
-            // std::cout << "5. Logout" << std::endl;
-            std::cout << "6. Exit" << std::endl;
+            std::cout << "5. Give Feedback" << std::endl;
+            std::cout << "6. Favorite" << std::endl;
+            std::cout << "7. Exit" << std::endl;
             std::cout << "Enter your choice: ";
             std::cin >> choice;
 
@@ -689,44 +717,25 @@ void reguserMenu(University * uni) {
             break;
             case 3:
                 int option;
-                bool asc;
                 cout << "Choose a sorting algorithm" << endl;
                 cout << "1. Merge Sort" << endl;
                 cout << "2. Quick Sort" << endl;
                 cin >> option;
                 switch (option)
                 {
-                    case 1:
-                        int ans;
-                        cout << "Choose in which order" << endl;
-                        cout << "1. Ascending" << endl;
-                        cout << "2. Descending" << endl;
-                        cin >> ans;
-                        switch (ans)
-                        {
-                            case 1:
-                                asc = true;
-                                break;
-                            case 2:
-                                asc = false;
-                                break;
-                            default:
-                                break;
-                        }
-                        uni->MergeSortAlgo(asc);
-                        break;
-                    case 2:
-                        uni->Quick_Sort(asc);
-                        break;
+                    //
                 }
             
             case 4:
                 uni->Reg_Inter_Search();
                 break;
-            // case 5:
-            //     // user->UserMainMenu();
-            //     // break;
+            case 5:
+                //feedback
+                break;
             case 6:
+                //favorite
+                break;
+            case 7:
                 std::cout << "Exiting..." << std::endl;
                 break;
             default:
@@ -734,6 +743,23 @@ void reguserMenu(University * uni) {
             }
         } while (choice != 5);
     }
+
+void display() 
+        {
+            cout<< left << this -> username << ",";
+            cout<< this -> password << endl;
+        }
+
+    void display_user()
+        {
+            reguDll.Display();
+        }
+
+    void header()
+        {
+            cout<< left << this -> username << ",";
+            cout<< this -> password << endl;
+        } 
 
 // private:
 
@@ -843,7 +869,7 @@ public:
 class Admin {
     public:
 
-    void adminmenu(University * uni, User * user, RegisteredUser * reguser, Admin * admin, Favorite * Favorite, Feedback * feedb) {
+    void adminmenu(University * uni, Favorite * fav, Feedback*feedb) {
         int choice;
         int userCount = 0;
         int userFavCount = 0;
@@ -886,7 +912,7 @@ class Admin {
 
                 default:
                     std::cout << "Invalid input!" << std::endl;
-                    adminmenu(uni, user, reguser, admin, Favorite, feedb) ;
+                    adminmenu(uni,fav,feedb) ;
                 }
 
 
@@ -908,16 +934,16 @@ class Admin {
                     std::cout << "reply" << std::endl;
                     break;
                 case 3:
-                    adminmenu(uni, user, reguser, admin, Favorite, feedb) ;
+                    adminmenu(uni,fav,feedb) ;
                     break;
                 default:
                     std::cout << "Invalid Input!" << std::endl;
-                    adminmenu(uni, user, reguser, admin, Favorite, feedb) ;
+                    adminmenu(uni,fav,feedb) ;
                     break;
                 }
 
             case 3: //view customers favorite unis
-                Favorite -> display_fav();
+                fav -> display_fav();
                 break;
             case 4:
                 //generate report
@@ -931,7 +957,7 @@ class Admin {
             }
     }
 
-    void static Login(University * uni, User * user, RegisteredUser * reguser, Admin * admin, Favorite * Favorite, Feedback * feedb) {
+    void static Login(University * uni, User * user, RegisteredUser * reguser, Admin * admin, Favorite * fav, Feedback * feedb) {
 
 		string UsernameEntered, PasswordEntered;
 		cout << "Welcome to the Login Menu! Please Enter Your Credentials!" << endl;
@@ -960,7 +986,7 @@ class Admin {
 
 		}
         else if (UsernameEntered == "Admin" && PasswordEntered == "Password") {
-            admin->adminmenu(uni, user, reguser, admin, Favorite, feedb);
+            admin->adminmenu(uni, fav, feedb);
             file.close();
 
         }
