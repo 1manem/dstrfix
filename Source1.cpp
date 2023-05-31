@@ -102,7 +102,6 @@ class Feedback
         {
             if (current->FbId == feedbackID)
                 return current;
-
             current = current->nextAdd;
         }
 
@@ -553,7 +552,6 @@ void University :: BinarySearch()
         auto stop = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double> diff = stop - start;
         std::cout<< "Time Taken: " << diff.count() << " s\n";
-
     }
     else{
         cout << "University not Found";
@@ -584,6 +582,7 @@ void University :: Reg_Binary_Search()
         auto stop = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double> diff = stop - start;
         std::cout<< "Time Taken: " << diff.count() << " s\n";
+        return;
     }
     else{
         cout << "Attributes not Found\n\n";
@@ -604,6 +603,7 @@ void University :: Inter_Search()
         auto stop = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double> diff = stop - start;
         std::cout<< "Time Taken: " << diff.count() << " s\n";
+        return;
     }
     else {
         cout << "UNIVERSITY NOT FOUND" << endl;
@@ -660,6 +660,7 @@ void University :: Reg_Inter_Search()
         auto stop = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double> diff = stop - start;
         std::cout<< "Time Taken: " << diff.count() << " s\n";
+        return;
     }
     else {
         cout << "UNIVERSITY NOT FOUND" << endl;
@@ -674,7 +675,7 @@ void University :: MergeSortAlgo(bool asc, string type)
     auto stop = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> diff = stop - start;
     std::cout<< "Time Taken: " << diff.count() << " s\n";
-
+    return;
 }
 
 void University :: Quick_Sort(bool asc, string type)
@@ -685,12 +686,8 @@ void University :: Quick_Sort(bool asc, string type)
     auto stop = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> diff = stop - start;
     std::cout<< "Time Taken: " << diff.count() << " s\n";
+    return;
 }
-
-// bool University :: compareAttributes()
-// {
-//     //
-// }
 
 void University :: display()
 {
@@ -1059,14 +1056,14 @@ class Admin {
                     break;
                 case 3:
                     //modify user
+                    break;
                 case 4:
-                    admin -> adminmenu(uni,fav,feedb, reguser, admin);
+                    adminmenu(uni,fav,feedb, reguser, admin);
                     break;               
-
                 default:
                     std::cout << "Invalid input!" << std::endl;
                     adminmenu(uni,fav,feedb, reguser, admin) ;
-                break;
+                    break;
                 }
                 break;
             case 2: //view user feedback
@@ -1104,13 +1101,13 @@ class Admin {
                     }
                     std::cout << "reply" << std::endl;
                     break;
-                case 3:
-                    adminmenu(uni,fav,feedb, reguser, admin) ;
-                    break;
-                default:
-                    std::cout << "Invalid Input!" << std::endl;
-                    adminmenu(uni,fav,feedb, reguser, admin) ;
-                    break;
+                // case 3:
+                //     adminmenu(uni,fav,feedb, reguser, admin);
+                //     break;
+                // // default:
+                // //     std::cout << "Invalid Input!" << std::endl;
+                // //     adminmenu(uni,fav,feedb, reguser, admin) ;
+                // //     break;
                 }
                 break;
 
@@ -1123,8 +1120,7 @@ class Admin {
             case 5:
                 cout << "Goodbye!" << endl;
                 break;
-            // default: 
-                break;
+            default: 
                 std::cout << "Invalid choice, please try again" << std::endl;
                 break;
             }
@@ -1226,6 +1222,7 @@ void UserMainMenu(University * uni, User * user, RegisteredUser * reguser, Admin
 				break;
 			case 3:
 				uni->display_univinfo();
+                return;
 				break;
 			case 4:
 				int option;
@@ -1273,7 +1270,7 @@ void UserMainMenu(University * uni, User * user, RegisteredUser * reguser, Admin
                                 break;
                         }
                         uni->MergeSortAlgo(asc, "rank");
-                        break;
+                    break;
                     case 2:
                         int answer;
                         cout << "Choose in which order" << endl;

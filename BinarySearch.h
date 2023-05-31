@@ -23,14 +23,11 @@ Node* midNode(Node* front, Node* back){
 
 template <class Node> 
 Node* NormalBinarySearch(Node* head, string target) {
-    cout << "masuk";
 	Node* begin = head;
 	Node* finish = NULL;
 	while (begin != finish) {
 		Node* mid = midNode(begin, finish);
 		if (stoi(target) == mid->rank) {
-			cout << "check";
-            cout << mid << endl;
             return mid;
 		}
 		else if (mid->rank > stoi(target)) {
