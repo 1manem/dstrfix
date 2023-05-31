@@ -95,6 +95,19 @@ class Feedback
     Feedback* nextAdd;
     Feedback* prevAdd;
     DoubleLinkedList<Feedback> fbDLL;
+    Feedback* searchFeedback(const string& feedbackID)
+    {
+        Feedback* current = fbDLL.head;
+        while (current != nullptr)
+        {
+            if (current->FbId == feedbackID)
+                return current;
+
+            current = current->nextAdd;
+        }
+
+        return nullptr; 
+    }
 
     Feedback()
     {
@@ -122,7 +135,7 @@ class Feedback
         this->fbreply_date = "N/A";
     }
 
-    void setfbreply() 
+    void setfbreply(string fbreply) 
     {
         this->fbreply = fbreply;
     }
@@ -132,23 +145,6 @@ class Feedback
         return this->fbreply;
     }
 
-    void setfbreply_date()
-    {
-        this->fbreply_date = fbreply_date;
-    }
-
-    string getfbreply_date()
-    {
-        return this->fbreply_date;
-    }
-
-    void generateFeedbackID(int& counter, std::string& feedbackID)
-    {
-    feedbackID = "FB" + std::to_string(counter);
-    feedbackID = feedbackID.insert(2, std::string(3 - std::to_string(counter).length(), '0'));
-    counter++;
-    }
-  
     std::string fbtime()
     {
         std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
@@ -168,6 +164,23 @@ class Feedback
         buffer << std::setw(2) << hour << ':' << std::setw(2) << minute << ':' << std::setw(2) << second;
         
         return buffer.str();
+    }
+
+    void setfbreply_date()
+    {
+        this->fbreply_date = fbreply_date;
+    }
+
+    string getfbreply_date()
+    {
+        return this->fbreply_date;
+    }
+
+    void generateFeedbackID(int& counter, std::string& feedbackID)
+    {
+    feedbackID = "FB" + std::to_string(counter);
+    feedbackID = feedbackID.insert(2, std::string(3 - std::to_string(counter).length(), '0'));
+    counter++;
     }
 
     void addfb(string& feedbackID, string username, string institution, string feedback)
@@ -213,14 +226,43 @@ class Feedback
         }
     void display() 
         {
-            cout<< left << this->FbId << ":";
-            cout<< this->username << ":";
-            cout<< this->institution << ":";
-            cout<< this->feedback << ":";
-            cout<< this->fbdate << ":";
-            cout<< this->fbreply << ":";
-            cout<< this->fbreply_date << endl;
+            // cout<< left << this->FbId << ":";
+            // cout<< this->username << ":";
+            // cout<< this->institution << ":";
+            // cout<< this->feedback << ":";
+            // cout<< this->fbdate << ":";
+            // cout<< this->fbreply << ":";
+            // cout<< this->fbreply_date << endl;
+            cout << "ID:" << FbId << endl;
+            cout << "username:" << username << endl;
+            cout << "institution:" << institution << endl;
+            cout << "feedback:" << feedback << endl;
+            cout << "fbdate:" << fbdate << endl;
+            cout << "fbreply:" << fbreply << endl;
+            cout << "fbreply_date:" << fbreply_date << endl;
         }
+
+    // cout << "Rank: " << rank << endl;
+    // cout << "Institution: " << institution << endl;
+    // cout << "Location Code: " << LocationCode << endl;
+    // cout << "Location: " << Location << endl;
+    // cout << "Academic Reputation Score: " << ArScore << endl;
+    // cout << "Academic Reputation Rank: " << ArRank << endl;
+    // cout << "Employer Reputation Score: " << ErScore << endl;
+    // cout << "Employer Reputation Rank: " << ErRank << endl;
+    // cout << "Faculty/Student Reputation Score: " << FsrScore << endl;
+    // cout << "Faculty/Student Reputation Rank: " << FsrRank << endl;
+    // cout << "Citations per Faculty Score: " << CpfScore << endl;
+    // cout << "Citations per Faculty Rank: " << CpfRank << endl;
+    // cout << "International Faculty Ratio Score: " << IfrScore << endl;
+    // cout << "International Faculty Ratio Rank: " << IfrRank << endl;
+    // cout << "International Student Ratio Score: " << IsrScore << endl;
+    // cout << "International Student Ratio Rank: " << IsrRank << endl;
+    // cout << "International Research Network Score: " << IrnScore << endl;
+    // cout << "International Research Network Rank: " << IrnRank << endl;
+    // cout << "Employment Outcome Score: " << GerScore << endl;
+    // cout << "Employment Outcome Rank: " << GerRank << endl;
+    // cout << "Score Scaled: " << GerScore << endl << endl;
     void display_feedback()
         {
             fbDLL.Display();
@@ -500,7 +542,7 @@ void University :: BinarySearch()
 {
     string target;
     cout << "Welcome to the Binary Search Menu!" << endl;
-    cout << "Please enter the university name : "<< endl;
+    cout << "Please enter the university rank : "<< endl;
     cin.clear();
     cin.ignore(numeric_limits<streamsize>::max(),'\n');
     getline(cin, target);
@@ -531,6 +573,7 @@ void University :: Reg_Binary_Search()
 	cout << "6. Employer Reputation Rank" << endl;
     cout << "Please enter what to search : " << endl;
     cin >> type;
+    cout << "Enter what to search: ";
     cin.clear();
     cin.ignore(numeric_limits<streamsize>::max(),'\n');
     getline(cin, target);
@@ -543,14 +586,14 @@ void University :: Reg_Binary_Search()
         std::cout<< "Time Taken: " << diff.count() << " s\n";
     }
     else{
-        cout << "Attributes not Found";
+        cout << "Attributes not Found\n\n";
     }
 }
 
 void University :: Inter_Search()
 {
     string input;
-    cout << "Enter what to search: ";
+    cout << "Enter what rank to search: ";
     cin.clear();
     cin.ignore();
     getline(cin, input);
@@ -712,7 +755,14 @@ public:
             RegisteredUser* newNode = new RegisteredUser(username, password);
             reguDll.InsertEnd(newNode);
         }
-    void reguserMenu(University * uni) {
+
+    void addToList(string username, string password)
+    {
+        RegisteredUser* newNode = new RegisteredUser(username, password);
+        reguDll.InsertEnd(newNode);
+    }
+
+    void reguserMenu(University * uni, Feedback * feedb, Favorite * fav) {
         int choice;
 
         do {
@@ -734,9 +784,11 @@ public:
                 cout << "1. Merge Sort" << endl;
                 cout << "2. Quick Sort" << endl;
                 cin >> op;
+                bool asc;
                 switch (op)
                 {
-                    //
+                    case 1:
+                        uni->MergeSortAlgo(asc);
                 }
             break;
             case 2:
@@ -778,7 +830,7 @@ public:
 
                 break;
             case 5:
-                //feedback
+                //
                 break;
             case 6:
                 //favorite
@@ -788,6 +840,7 @@ public:
                 break;
             default:
                 std::cout << "Invalid choice. Please try again." << std::endl;
+                break;
             }
         } while (choice != 5);
     }
@@ -917,7 +970,7 @@ public:
 class Admin {
     public:
 
-    void adminmenu(University * uni, Favorite * fav, Feedback*feedb) {
+    void adminmenu(University * uni, Favorite * fav, Feedback*feedb, RegisteredUser* reguser, Admin * admin) {
         int choice;
         int userCount = 0;
         int userFavCount = 0;
@@ -948,7 +1001,7 @@ class Admin {
 
                 switch (sortchoice) {
                 case 1:
-                    //display user
+                    reguser -> display_user();
                     break;
                 case 2:
                     //delete user
@@ -956,14 +1009,15 @@ class Admin {
                 case 3:
                     //modify user
                 case 4:
-                    //exit
+                    admin -> adminmenu(uni,fav,feedb, reguser, admin);
+                    break;               
 
                 default:
                     std::cout << "Invalid input!" << std::endl;
-                    adminmenu(uni,fav,feedb) ;
+                    adminmenu(uni,fav,feedb, reguser, admin) ;
+                break;
                 }
-
-
+                break;
             case 2: //view user feedback
                 int sortchoice2;
 
@@ -972,24 +1026,43 @@ class Admin {
                 std::cout << "3. Exit\n\n" << std::endl;
                 std::cout << "Choose:" << std::endl;
                 std::cin >> sortchoice2;
-
                 switch (sortchoice2) {
                 case 1:
                     feedb -> display_feedback();
                     break;
                 case 2:
-                    // reply feedback
+                    Feedback feedback; 
+                    string FbID;
+                    cout << "Please enter the wanted feedback ID: ";
+                    cin >> FbID;
+                    Feedback* foundFeedback = feedback.searchFeedback(FbID);
+                    if (foundFeedback != nullptr)
+                    {
+                        string reply;
+                        cout << "Please enter your reply: ";
+                        cin.ignore(); 
+                        getline(cin, reply);
+
+                        foundFeedback->setfbreply(reply);
+                        foundFeedback->setfbreply_date(feedb.fbtime);
+                        feedback.addToFile();
+                        cout << "Reply added successfully." << endl;
+                    }
+                    else
+                    {
+                        cout << "Feedback ID not found."<< endl;
+                    }
                     std::cout << "reply" << std::endl;
                     break;
                 case 3:
-                    adminmenu(uni,fav,feedb) ;
+                    adminmenu(uni,fav,feedb, reguser, admin) ;
                     break;
                 default:
                     std::cout << "Invalid Input!" << std::endl;
-                    adminmenu(uni,fav,feedb) ;
+                    adminmenu(uni,fav,feedb, reguser, admin) ;
                     break;
                 }
-
+                break;
             case 3: //view customers favorite unis
                 fav -> display_fav();
                 break;
@@ -997,6 +1070,7 @@ class Admin {
                 //generate report
                 break;
             case 5:
+                cout << "Goodbye!" << endl;
                 break;
             // default: 
                 break;
@@ -1025,13 +1099,16 @@ class Admin {
                 // cout<< Username << Password;
 				if (UsernameEntered == Username && PasswordEntered == Password) {
 					file.close();
-                    reguser->reguserMenu(uni);
+                    reguser->reguserMenu(uni,feedb,fav);
 					return;
 				}
                 else if (UsernameEntered == "Admin" && PasswordEntered == "Password") {
-                admin->adminmenu(uni, fav, feedb);
+                admin->adminmenu(uni, fav, feedb, reguser, admin);
                 file.close();
 			    }
+                // else{
+                //     cout << "Invalid user" << endl;
+                // }
 
 		}
 
@@ -1045,7 +1122,7 @@ class Admin {
 
 	}
 
-    void static SignUp(University * uni, User * user, RegisteredUser * reguser, Admin * admin, Favorite * Favorite, Feedback * feedb) {
+    void static SignUp(University * uni, User * user, RegisteredUser * reguser, Admin * admin, Favorite * fav, Feedback * feedb) {
 
 		string UserUsername, UserPassword;
 
@@ -1069,7 +1146,7 @@ class Admin {
 			cerr << "The Sign Up Process is Unsuccessful, Please Try Again!" << endl;
 
 		}
-        reguser->reguserMenu(uni);
+        reguser->reguserMenu(uni, feedb, fav);
 	}
 };
     
