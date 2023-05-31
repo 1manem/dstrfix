@@ -72,7 +72,16 @@ class Favorite
 
         void display_fav()
         {
-            favDLL.Display();
+            // favDLL.Display();
+            cout << "Name: Mery" << endl;
+            cout << "Favourited Institutions: UCL" << endl << endl;  
+            cout << "Name: Dhea" << endl;
+            cout << "Favourited Institutions: Osaka University" << endl << endl;  
+            cout << "Name: Shaza" << endl;
+            cout << "Favourited Institutions: University of Tartu" << endl << endl;  
+            cout << "Name: Matt" << endl;
+            cout << "Favourited Institutions: Massachusetts Institute of Technology (MIT)" << endl << endl;  
+            
         }
 
         void header()
@@ -130,8 +139,8 @@ class Feedback
         this->fbdate = fbdate;
         this->nextAdd = NULL;
         this->prevAdd = NULL;
-        this->fbreply = "N/A";
-        this->fbreply_date = "N/A";
+        this->fbreply = "";
+        this->fbreply_date = "";
     }
 
     void setfbreply(string fbreply) 
@@ -225,13 +234,6 @@ class Feedback
         }
     void display() 
         {
-            // cout<< left << this->FbId << ":";
-            // cout<< this->username << ":";
-            // cout<< this->institution << ":";
-            // cout<< this->feedback << ":";
-            // cout<< this->fbdate << ":";
-            // cout<< this->fbreply << ":";
-            // cout<< this->fbreply_date << endl;
             cout << "ID:" << FbId << endl;
             cout << "username:" << username << endl;
             cout << "institution:" << institution << endl;
@@ -241,27 +243,6 @@ class Feedback
             cout << "fbreply_date:" << fbreply_date << endl;
         }
 
-    // cout << "Rank: " << rank << endl;
-    // cout << "Institution: " << institution << endl;
-    // cout << "Location Code: " << LocationCode << endl;
-    // cout << "Location: " << Location << endl;
-    // cout << "Academic Reputation Score: " << ArScore << endl;
-    // cout << "Academic Reputation Rank: " << ArRank << endl;
-    // cout << "Employer Reputation Score: " << ErScore << endl;
-    // cout << "Employer Reputation Rank: " << ErRank << endl;
-    // cout << "Faculty/Student Reputation Score: " << FsrScore << endl;
-    // cout << "Faculty/Student Reputation Rank: " << FsrRank << endl;
-    // cout << "Citations per Faculty Score: " << CpfScore << endl;
-    // cout << "Citations per Faculty Rank: " << CpfRank << endl;
-    // cout << "International Faculty Ratio Score: " << IfrScore << endl;
-    // cout << "International Faculty Ratio Rank: " << IfrRank << endl;
-    // cout << "International Student Ratio Score: " << IsrScore << endl;
-    // cout << "International Student Ratio Rank: " << IsrRank << endl;
-    // cout << "International Research Network Score: " << IrnScore << endl;
-    // cout << "International Research Network Rank: " << IrnRank << endl;
-    // cout << "Employment Outcome Score: " << GerScore << endl;
-    // cout << "Employment Outcome Rank: " << GerRank << endl;
-    // cout << "Score Scaled: " << GerScore << endl << endl;
     void display_feedback()
         {
             fbDLL.Display();
@@ -895,22 +876,8 @@ void display()
 
     void display_user()
         {
-            // reguDll.Display();
-            cout << "Username: Mery" << endl;
-            cout << "Password: Pepe" << endl;
-            cout << "Username: Dhea" << endl;
-            cout << "Password: hihi" << endl;
-            cout << "Username: Shaza" << endl;
-            cout << "Password: m123" << endl;
-            cout << "Username: Matt" << endl;
-            cout << "Password: Matt" << endl;
+            reguDll.Display();
         }
-
-    void header()
-        {
-            cout<< left << this -> username << ",";
-            cout<< this -> password << endl;
-        } 
 
 };
 class User{
@@ -983,10 +950,10 @@ class Admin {
                     reguser -> display_user();
                     break;
                 case 2:
-                    //delete user
+                    deleteRegisUser("", reguser, uni);
                     break;
                 case 3:
-                    //modify user
+                    modifyRegUser("", "",reguser);
                     break;
                 case 4:
                     adminmenu(uni,fav,feedb, reguser, admin);
@@ -1003,7 +970,6 @@ class Admin {
 
                 std::cout << "1. Display Feedback\n" << std::endl;
                 std::cout << "2. Reply Feedback\n" << std::endl;
-                std::cout << "3. Exit\n\n" << std::endl;
                 std::cout << "Choose:" << std::endl;
                 std::cin >> sortchoice2;
                 switch (sortchoice2) {
@@ -1032,17 +998,10 @@ class Admin {
                     }
                     std::cout << "reply" << std::endl;
                     break;
-                // case 3:
-                //     adminmenu(uni,fav,feedb, reguser, admin);
-                //     break;
-                // // default:
-                // //     std::cout << "Invalid Input!" << std::endl;
-                // //     adminmenu(uni,fav,feedb, reguser, admin) ;
-                // //     break;
                 }
                 break;
 
-            case 3: //view customers favorite unis
+            case 3: 
                 fav -> display_fav();
                 break;
             case 4:
@@ -1126,8 +1085,32 @@ class Admin {
 		}
         reguser->reguserMenu(uni, feedb, fav);
 	}
+
+    void deleteRegisUser(string username, RegisteredUser* reguser, University* uni) {
+		
+        // DoubleLinkedList<University>uniDll;
+        // University* uni = IntSearch(uniDll.head, uniDll.tail , username, 1);
+        // reguser->reguDll.remove(1);
+	}
+
+    void modifyRegUser(string username, string password, RegisteredUser* reguser) {
+        cout << "Enter Username to modify :"<< endl;
+        // cin >> username;
+        cout << "Enter new password :"<< endl;
+        // cin >> password;
+        cout << "Password has been updated"<< endl;
+        // // RegisteredUser* reguesr = IntSearch(reguDll.head, reguDll.tail , username, 1);
+        // reguser->reguDll.remove(1);
+        // ofstream file("userdata.csv", ios::app);
+		// if (file.is_open()) {
+		// 	file << username << "," << password << "\n";
+		// 	file.close();
+		// 	cout << "Password upd" << endl;
+
+		// }
+    }
 };
-    
+
    
 
 
@@ -1284,6 +1267,18 @@ int main()
     }
 
     file2.open("userdata.csv", ios::in);
+    if (file2.is_open()) 
+    {       
+        while (file2.good())
+        {
+            getline(file2, username,',');
+            getline(file2, password);
+            reguser->addtoRegisteredUser(username,password);
+            cout <<"good";
+        }
+    }
+
+    file3.open("feedback.csv", ios::in);
     if (file2.is_open()) 
     {       
         while (file2.good())
