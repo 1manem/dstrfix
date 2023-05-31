@@ -515,7 +515,27 @@ void University :: BinarySearch()
 
 void University :: Reg_Binary_Search()
 {
-    //
+    string target;
+    int type;
+    cout << "Welcome to the Binary Search Menu!" << endl;
+    cout << "1. Rank" << endl;
+	cout << "2. Institution" << endl;
+	cout << "3. Location Code" << endl;
+	cout << "4. Location" << endl;
+	cout << "5. Academic Reputation Rank" << endl;
+	cout << "6. Employer Reputation Rank" << endl;
+    cout << "Please enter what to search : " << endl;
+    cin >> type;
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(),'\n');
+    getline(cin, target);
+    University * point = MemberBinarySearch(univDLL.head, target, type);
+    if (point != NULL){
+        point->display();
+    }
+    else{
+        cout << "Attributes not Found";
+    }
 }
 
 void University :: Inter_Search()
@@ -585,7 +605,7 @@ void University :: MergeSortAlgo(bool asc)
 
 void University :: Quick_Sort(bool asc)
 {
-    QuickSort(univDLL.head,univDLL.tail);
+    QuickSort(univDLL.head,univDLL.tail,asc);
     // sort([](const University* a, const University* b) {
     //     return a->institution < b->institution;
     // });
@@ -630,7 +650,90 @@ void University :: display_univinfo()
 
 class RegisteredUser {
 public:
+void reguserMenu(University * uni) {
+        int choice;
 
+        do {
+            std::cout << "=== Main Menu ===" << std::endl;
+            std::cout << "1. Display University Academic Ranking" << std::endl;
+            std::cout << "2. Display University Faculty and Student Ratio Score" << std::endl;
+            std::cout << "3. Display University Employee Reputation Score" << std::endl;
+            std::cout << "4. Search University" << std::endl;
+            // std::cout << "5. Logout" << std::endl;
+            std::cout << "6. Exit" << std::endl;
+            std::cout << "Enter your choice: ";
+            std::cin >> choice;
+
+            switch (choice) {
+            case 1:
+                int op;
+                cout << "Choose a sorting algorithm" << endl;
+                cout << "1. Merge Sort" << endl;
+                cout << "2. Quick Sort" << endl;
+                cin >> op;
+                switch (op)
+                {
+                    //
+                }
+            break;
+            case 2:
+                int opt;
+                cout << "Choose a sorting algorithm" << endl;
+                cout << "1. Merge Sort" << endl;
+                cout << "2. Quick Sort" << endl;
+                cin >> opt;
+                switch (opt)
+                {
+                    //
+                }
+            break;
+            case 3:
+                int option;
+                bool asc;
+                cout << "Choose a sorting algorithm" << endl;
+                cout << "1. Merge Sort" << endl;
+                cout << "2. Quick Sort" << endl;
+                cin >> option;
+                switch (option)
+                {
+                    case 1:
+                        int ans;
+                        cout << "Choose in which order" << endl;
+                        cout << "1. Ascending" << endl;
+                        cout << "2. Descending" << endl;
+                        cin >> ans;
+                        switch (ans)
+                        {
+                            case 1:
+                                asc = true;
+                                break;
+                            case 2:
+                                asc = false;
+                                break;
+                            default:
+                                break;
+                        }
+                        uni->MergeSortAlgo(asc);
+                        break;
+                    case 2:
+                        uni->Quick_Sort(asc);
+                        break;
+                }
+            
+            case 4:
+                uni->Reg_Inter_Search();
+                break;
+            // case 5:
+            //     // user->UserMainMenu();
+            //     // break;
+            case 6:
+                std::cout << "Exiting..." << std::endl;
+                break;
+            default:
+                std::cout << "Invalid choice. Please try again." << std::endl;
+            }
+        } while (choice != 5);
+    }
 
 // private:
 
@@ -845,9 +948,10 @@ class Admin {
 				string Username, Password;
 				getline(ss, Username, ',');
 				getline(ss, Password, ',');
-
+                // cout<< Username << Password;
 				if (UsernameEntered == Username && PasswordEntered == Password) {
 					file.close();
+                    reguser->reguserMenu(uni);
 					return;
 				}
 
@@ -892,6 +996,7 @@ class Admin {
 			cerr << "The Sign Up Process is Unsuccessful, Please Try Again!" << endl;
 
 		}
+        reguser->reguserMenu(uni);
 	}
 };
     
@@ -901,7 +1006,7 @@ class Admin {
 void UserMainMenu(University * uni, User * user, RegisteredUser * reguser, Admin * admin, Favorite * Favorite, Feedback * feedb) {
 		int Menu;
 		cout << "\n Hello New User, Welcome to the University Ranking System!" << endl;
-		cout << "\n\n\n\n Please Select the Menu from the Main Menu ;) " << endl;
+		cout << "\n Please Select the Menu from the Main Menu ;) " << endl;
 		cout << "\n ===========================================================" << endl;
 		cout << "\n 1. Sign Up" << endl;
 		cout << "\n 2. Log In" << endl;
@@ -1002,69 +1107,6 @@ void UserMainMenu(University * uni, User * user, RegisteredUser * reguser, Admin
 		}
 
 	}
-
-void reguserMenu(University * uni, Admin * admin, Favorite * Favorite, Feedback * feedb) {
-        int choice;
-
-        do {
-            std::cout << "=== Main Menu ===" << std::endl;
-            std::cout << "1. Display University Academic Ranking" << std::endl;
-            std::cout << "2. Display University Faculty and Student Ratio Score" << std::endl;
-            std::cout << "3. Display University Employee Reputation Score" << std::endl;
-            std::cout << "4. Search University" << std::endl;
-            // std::cout << "5. Logout" << std::endl;
-            std::cout << "6. Exit" << std::endl;
-            std::cout << "Enter your choice: ";
-            std::cin >> choice;
-
-            switch (choice) {
-            case 1:
-                int op;
-                cout << "Choose a sorting algorithm" << endl;
-                cout << "1. Merge Sort" << endl;
-                cout << "2. Quick Sort" << endl;
-                cin >> op;
-                switch (op)
-                {
-                    //
-                }
-            break;
-            case 2:
-                int opt;
-                cout << "Choose a sorting algorithm" << endl;
-                cout << "1. Merge Sort" << endl;
-                cout << "2. Quick Sort" << endl;
-                cin >> opt;
-                switch (opt)
-                {
-                    //
-                }
-            break;
-            case 3:
-                int option;
-                cout << "Choose a sorting algorithm" << endl;
-                cout << "1. Merge Sort" << endl;
-                cout << "2. Quick Sort" << endl;
-                cin >> option;
-                switch (option)
-                {
-                    //
-                }
-            
-            case 4:
-                uni->Reg_Inter_Search();
-                break;
-            // case 5:
-            //     // user->UserMainMenu();
-            //     // break;
-            case 6:
-                std::cout << "Exiting..." << std::endl;
-                break;
-            default:
-                std::cout << "Invalid choice. Please try again." << std::endl;
-            }
-        } while (choice != 5);
-    }
 
 
 int main()

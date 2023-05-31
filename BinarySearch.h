@@ -1,4 +1,3 @@
-#pragma once
 #include <iostream>
 
 using namespace std;
@@ -48,7 +47,6 @@ template <class Node>
 Node* MemberBinarySearch(Node* head, string target, int type) {
     Node* begin = head;
     Node* finish = nullptr;
-
     switch (type) {
         case 1:
             while (begin != finish) {
