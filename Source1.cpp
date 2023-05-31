@@ -166,7 +166,7 @@ class Feedback
         return buffer.str();
     }
 
-    void setfbreply_date()
+    void setfbreply_date(string fbreply_date)
     {
         this->fbreply_date = fbreply_date;
     }
@@ -1019,7 +1019,7 @@ public:
 class Admin {
     public:
 
-    void adminmenu(University * uni, Favorite * fav, Feedback*feedb, RegisteredUser* reguser, Admin * admin) {
+    void adminmenu(University * uni, Favorite * fav, Feedback * feedb, RegisteredUser * reguser, Admin * admin) {
         int choice;
         int userCount = 0;
         int userFavCount = 0;
@@ -1037,7 +1037,8 @@ class Admin {
             std::cout << "Please select an option (1-5): " << std::endl;
             std::cin >> choice;
             Feedback feedback; 
-                    string FbID;
+            string FbID;
+
             switch (choice) {
             case 1: //view user details
                 int sortchoice;
@@ -1069,45 +1070,50 @@ class Admin {
                 }
                 break;
             case 2: //view user feedback
-                // int sortchoice2;
-                // std::cout << "1. Display Feedback\n" << std::endl;
-                // std::cout << "2. Reply Feedback\n" << std::endl;
-                // std::cout << "3. Exit\n\n" << std::endl;
-                // std::cout << "Choose:" << std::endl;
-                // std::cin >> sortchoice2;
-                // switch (sortchoice2) {
-                // case 1:
-                //     feedb -> display_feedback();
-                //     break;
-                // case 2:
-                //     cout << "Please enter the wanted feedback ID: ";
-                //     cin >> FbID;
-                //     Feedback* foundFeedback = feedback.searchFeedback(FbID);
-                //     if (foundFeedback != nullptr)
-                //     {
-                //         string reply;
-                //         cout << "Please enter your reply: ";
-                //         cin.ignore(); 
-                //         getline(cin, reply);
-                //         foundFeedback->setfbreply(reply);
-                //         // foundFeedback->setfbreply_date(fbtime);
-                //         feedback.addToFile();
-                //         cout << "Reply added successfully." << endl;
-                //     }
-                //     else
-                //     {
-                //         cout << "Feedback ID not found."<< endl;
-                //     }
-                //     std::cout << "reply" << std::endl;
-                //     break;
-                // case 3:
-                //     adminmenu(uni,fav,feedb, reguser, admin) ;
-                //     break;
-                // default:
-                //     std::cout << "Invalid Input!" << std::endl;
-                //     adminmenu(uni,fav,feedb, reguser, admin) ;
-                //     break;
-                // }
+
+                int sortchoice2;
+
+                std::cout << "1. Display Feedback\n" << std::endl;
+                std::cout << "2. Reply Feedback\n" << std::endl;
+                std::cout << "3. Exit\n\n" << std::endl;
+                std::cout << "Choose:" << std::endl;
+                std::cin >> sortchoice2;
+                switch (sortchoice2) {
+                case 1:
+                    feedb -> display_feedback();
+                    break;
+                case 2:
+                    cout << "Please enter the wanted feedback ID: ";
+                    cin >> FbID;
+                    Feedback* foundFeedback = feedback.searchFeedback(FbID);
+                    if (foundFeedback != nullptr)
+                    {
+                        string reply;
+                        cout << "Please enter your reply: ";
+                        cin.ignore(); 
+                        getline(cin, reply);
+
+                        foundFeedback->setfbreply(feedb->getfbreply());
+                        foundFeedback->setfbreply_date(feedb->getfbreply_date());
+                        feedback.addToFile();
+                        cout << "Reply added successfully." << endl;
+                    }
+                    else
+                    {
+                        cout << "Feedback ID not found."<< endl;
+                    }
+                    std::cout << "reply" << std::endl;
+                    break;
+                case 3:
+                    adminmenu(uni,fav,feedb, reguser, admin) ;
+                    break;
+                default:
+                    std::cout << "Invalid Input!" << std::endl;
+                    adminmenu(uni,fav,feedb, reguser, admin) ;
+                    break;
+                }
+                break;
+
             case 3: //view customers favorite unis
                 fav -> display_fav();
                 break;
