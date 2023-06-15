@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <cstring>
 #include <sstream>
 #include <ctime>
 #include <iomanip>
@@ -851,6 +852,7 @@ void reguserMenu(University * uni, Feedback * feedb, Favorite * fav) {
                 break;
             case 7:
                 std::cout << "Exiting..." << std::endl;
+                return;
                 break;
             default:
                 std::cout << "Invalid choice. Please try again." << std::endl;
@@ -1022,23 +1024,20 @@ class Admin {
 			string line;
 			while (getline(file, line)) {
 				stringstream ss(line);
-				string Username, Password;
+				string Username, Password, LastActive;
 				getline(ss, Username, ',');
 				getline(ss, Password, ',');
-                // cout<< Username << Password;
+                getline(ss, LastActive);
 				if (UsernameEntered == Username && PasswordEntered == Password) {
 					file.close();
                     reguser->reguserMenu(uni,feedb,fav);
-					return;
+                    return;
 				}
                 else if (UsernameEntered == "Admin" && PasswordEntered == "Password") {
                 admin->adminmenu(uni, fav, feedb, reguser, admin);
                 file.close();
 			    }
-                else{
-                    cout << "Login Failed! Please Re-Enter the Credentials!"<< endl;
-                    return;
-                }
+
 		}
 
         }
@@ -1085,10 +1084,31 @@ class Admin {
 	}
 
     void deleteRegisUser(string username, RegisteredUser* reguser, University* uni) {
-		
-        // DoubleLinkedList<University>uniDll;
-        // University* uni = IntSearch(uniDll.head, uniDll.tail , username, 1);
-        // reguser->reguDll.remove(1);
+        string delUser, row;
+        cout << "Enter Username to delete: ";
+        cin >> delUser;
+
+        ifstream file("userdata.csv");
+        ofstream tempfile("temp.csv");
+        if (file.is_open()) {
+			string line;
+			while (getline(file, line)) {
+				stringstream ss(line);
+				string Username, Password, LastActive;
+				getline(ss, Username, ',');
+				getline(ss, Password, ',');
+                getline(ss, LastActive);
+				if (delUser == Username) {
+                        continue;
+                }
+                tempfile << line << endl;
+                file.close();
+                tempfile.close();
+                remove("userdata.csv");
+                rename("temp.csv", "userdata.csv");
+                std::cout << "User deleted successfully." << std::endl;
+            }
+        }
 	}
 
     void modifyRegUser(string username, string password, RegisteredUser* reguser) {
