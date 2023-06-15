@@ -702,13 +702,15 @@ public:
 
     string username;
 	string password;
+    string lastActive;
     RegisteredUser * nextAdd;
     RegisteredUser * prevAdd;
     DoubleLinkedList<RegisteredUser>reguDll;
 
-    RegisteredUser(string name, string institution) {
+    RegisteredUser(string name, string password, string lastActive) {
             this -> username = name;
             this -> password = password;
+            this -> lastActive = lastActive;
             this -> nextAdd = NULL;
             this -> prevAdd = NULL;
         }
@@ -720,8 +722,8 @@ public:
             this -> prevAdd = NULL;
         }
 
-    void addtoRegisteredUser(string username, string password){
-            RegisteredUser* newNode = new RegisteredUser(username, password);
+    void addtoRegisteredUser(string username, string password, string lastActive){
+            RegisteredUser* newNode = new RegisteredUser(username, password, lastActive);
             reguDll.InsertEnd(newNode);
         }
 
@@ -879,6 +881,7 @@ void display()
         {
             cout << "Username: " << username << endl;
             cout << "Password: " << password << endl;
+            cout << "Last Active: " << lastActive << "\n" <<endl;
         }
 
     void display_user()
@@ -893,6 +896,7 @@ private:
 
 	string username;
 	string password;
+    string lastActive;
 
 public:
 	
@@ -904,7 +908,7 @@ class Admin {
         int choice;
         int userCount = 0;
         int userFavCount = 0;
-
+        do{
 
             std::cout << "University Ranking System\n" << std::endl;
             std::cout << "What would you like to do? \n\n" << std::endl;
@@ -1000,6 +1004,8 @@ class Admin {
                 std::cout << "Invalid choice, please try again" << std::endl;
                 break;
             }
+        }
+        while(choice!=5);
     }
 
     void static Login(University * uni, User * user, RegisteredUser * reguser, Admin * admin, Favorite * fav, Feedback * feedb) {
@@ -1029,12 +1035,15 @@ class Admin {
                 admin->adminmenu(uni, fav, feedb, reguser, admin);
                 file.close();
 			    }
+                else{
+                    cout << "Login Failed! Please Re-Enter the Credentials!"<< endl;
+                    return;
+                }
 		}
-
 
         }
 		else {
-			cerr << "Login Failed!Please Re-Enter the Credentials!" << endl;
+			cerr << "Login Failed! Please Re-Enter the Credentials!" << endl;
 		}
 
 		return;
@@ -1043,7 +1052,7 @@ class Admin {
 
     void static SignUp(University * uni, User * user, RegisteredUser * reguser, Admin * admin, Favorite * fav, Feedback * feedb) {
 
-		string UserUsername, UserPassword;
+		string UserUsername, UserPassword, ActiveDate;
 
 
 		cout << "Welcome Future Member!" << endl;
@@ -1051,11 +1060,18 @@ class Admin {
 		cin >> UserUsername;
 		cout << "Please Enter Your Desired Password: " << endl;
 		cin >> UserPassword;
+        time_t now = time(NULL);
+	    tm* ltm = localtime(&now);
 
+	    std::stringstream buffer;
+        buffer << 1900 + ltm->tm_year << '/' << setw(2) << setfill('0') << ltm->tm_mon + 1 << '/' <<
+		setw(2) << setfill('0') << ltm->tm_mday << ' ' << setw(2) << setfill('0') << ltm->tm_hour << ':' <<
+		setw(2) << setfill('0') << ltm->tm_min << ':' << setw(2) << setfill('0') << ltm->tm_sec;
+	    ActiveDate = buffer.str();
 		ofstream file("userdata.csv", ios::app);
 		if (file.is_open()) {
 
-			file << UserUsername << "," << UserPassword << "\n";
+			file << UserUsername << "," << UserPassword << "," << ActiveDate << "\n";
 			file.close();
 			cout << "The Sign Up is Successful, Welcome New Member!" << endl;
 
@@ -1098,6 +1114,7 @@ class Admin {
 
 void UserMainMenu(University * uni, User * user, RegisteredUser * reguser, Admin * admin, Favorite * Favorite, Feedback * feedb) {
 		int Menu;
+        do{
 		cout << "\n Hello New User, Welcome to the University Ranking System!" << endl;
 		cout << "\n Please Select the Menu from the Main Menu ;) " << endl;
 		cout << "\n ===========================================================" << endl;
@@ -1199,15 +1216,17 @@ void UserMainMenu(University * uni, User * user, RegisteredUser * reguser, Admin
 				cout << "The Selection is Invalid, Please Select other Options" << endl;
             break;
 		}
-
+        }
+        while(Menu!=6);
 	}
 
 
 int main()
 {
+
     string rank, institution, locationCode, location, arScore, arRank, erScore, erRank, fsrScore, fsrRank, cpfScore, 
             cpfRank, ifrScore, ifrRank, isrScore, isrRank, irnScore, irnRank, gerScore, gerRank, scoreScaled;
-    string username, password;
+    string username, password, lastActive;
     University * uni = new University();
     User * user = new User();
     RegisteredUser * reguser = new RegisteredUser();
@@ -1254,9 +1273,9 @@ int main()
         while (file2.good())
         {
             getline(file2, username,',');
-            getline(file2, password);
-            reguser->addtoRegisteredUser(username,password);
-            cout <<"good";
+            getline(file2, password,',');
+            getline(file2, lastActive);
+            reguser->addtoRegisteredUser(username,password,lastActive);
         }
     }
 
@@ -1267,16 +1286,10 @@ int main()
         {
             getline(file2, username,',');
             getline(file2, password);
-            reguser->addtoRegisteredUser(username,password);
-            cout <<"good";
+            reguser->addtoRegisteredUser(username,password,lastActive);
         }
     }
 
     UserMainMenu(uni, user, reguser, admin, fav, feedb);
-
-    // cout << "2023 QS WORLD UNIVERSITY RANKINGS ARE AS SHOWN BELOW: \n\n" << endl << string(50, '=') << endl;
-    // void display_univinfo();
-    // cout << endl;
-    // return 0;
 
 }
