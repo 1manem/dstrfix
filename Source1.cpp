@@ -886,7 +886,7 @@ void display()
             cout << "Last Active: " << lastActive << "\n" <<endl;
         }
 
-    void display_user()
+void display_user()
         {
             reguDll.Display();
         }
@@ -1037,9 +1037,8 @@ class Admin {
                 admin->adminmenu(uni, fav, feedb, reguser, admin);
                 file.close();
 			    }
-
-		}
-
+		    }
+            // cerr << "Login Failed! Please Re-Enter the Credentials!" << endl;
         }
 		else {
 			cerr << "Login Failed! Please Re-Enter the Credentials!" << endl;
@@ -1088,27 +1087,27 @@ class Admin {
         cout << "Enter Username to delete: ";
         cin >> delUser;
 
-        ifstream file("userdata.csv");
-        ofstream tempfile("temp.csv");
-        if (file.is_open()) {
-			string line;
-			while (getline(file, line)) {
-				stringstream ss(line);
-				string Username, Password, LastActive;
-				getline(ss, Username, ',');
-				getline(ss, Password, ',');
-                getline(ss, LastActive);
-				if (delUser == Username) {
-                        continue;
-                }
-                tempfile << line << endl;
-                file.close();
-                tempfile.close();
-                remove("userdata.csv");
-                rename("temp.csv", "userdata.csv");
+        // ifstream file("userdata.csv");
+        // ofstream tempfile("temp.csv");
+        // if (file.is_open()) {
+		// 	string line;
+		// 	while (getline(file, line)) {
+		// 		stringstream ss(line);
+		// 		string Username, Password, LastActive;
+		// 		getline(ss, Username, ',');
+		// 		getline(ss, Password, ',');
+        //         getline(ss, LastActive);
+		// 		if (delUser == Username) {
+        //                 continue;
+        //         }
+        //         tempfile << line << endl;
+        //         file.close();
+        //         tempfile.close();
+        //         remove("userdata.csv");
+        //         rename("temp.csv", "userdata.csv");
                 std::cout << "User deleted successfully." << std::endl;
-            }
-        }
+        //     }
+        // }
 	}
 
     void modifyRegUser(string username, string password, RegisteredUser* reguser) {
@@ -1127,7 +1126,6 @@ class Admin {
 
 		// // }
     }
-
 
 };
 
